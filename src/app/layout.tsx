@@ -25,6 +25,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
+      suppressHydrationWarning
       lang="en"
       className={`${radioCanadaBig.variable} ${dmSerifDisplay.variable}`}
     >
