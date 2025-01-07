@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import { Radio_Canada_Big, DM_Serif_Display } from "next/font/google";
 import { type Metadata } from "next";
+import Providers from "@/components/Providers";
 
 const radioCanadaBig = Radio_Canada_Big({
   subsets: ["latin"],
@@ -27,7 +28,9 @@ export default function RootLayout({
       lang="en"
       className={`${radioCanadaBig.variable} ${dmSerifDisplay.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
