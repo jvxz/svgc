@@ -1,4 +1,5 @@
 import { ThemeProvider } from "next-themes";
+import { TooltipProvider } from "./ui/tooltip";
 
 function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -8,7 +9,7 @@ function Providers({ children }: { children: React.ReactNode }) {
       enableSystem
       disableTransitionOnChange
     >
-      {children}
+      <TooltipProvider>{children}</TooltipProvider>
     </ThemeProvider>
   );
 }
