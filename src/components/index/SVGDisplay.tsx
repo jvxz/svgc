@@ -12,7 +12,7 @@ async function SVGDisplay() {
 
   return (
     <ScrollArea className="size-full">
-      <div className="flex flex-wrap gap-6">
+      <div className="flex flex-wrap justify-evenly gap-6 p-6">
         <Suspense>
           {svgs ? (
             svgs.map((svg) => {
@@ -57,7 +57,7 @@ async function SVGCard({ svg }: { svg: iSVG }) {
   };
 
   return (
-    <div className="flex h-64 w-72 flex-col rounded-xl border border-border text-center">
+    <div className="flex h-60 w-64 flex-col rounded-xl border border-border text-center">
       <div className="flex min-h-12 items-center justify-center">
         <p>{svg.title}</p>
       </div>
