@@ -1,3 +1,8 @@
 export default function Page() {
-  return <div></div>;
+  return (
+    <main className="flex size-full">
+      <aside className="w-1/6 border-r border-border">Sidebar</aside>
+      <section className="h-full">SVGs</section>
+    </main>
+  );
 }
