@@ -1,15 +1,13 @@
 import { Copy, ExternalLink, Plus } from "lucide-react";
 import { Button } from "../ui/button";
-import { getAllSvgs, type iSVG } from "@/actions/get-svgs";
+import { type iSVG } from "@/actions/get-svgs";
 import Image from "next/image";
 import { Badge } from "../ui/badge";
 import { ScrollArea } from "../ui/scroll-area";
 import { Suspense } from "react";
 import { Tooltip, TooltipTrigger, TooltipContent } from "../ui/tooltip";
 
-async function SVGDisplay() {
-  const svgs = await getAllSvgs();
-
+async function SVGDisplay({ svgs }: { svgs: iSVG[] }) {
   return (
     <ScrollArea className="size-full">
       <div className="flex flex-wrap justify-evenly gap-6 p-6">

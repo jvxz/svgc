@@ -1,11 +1,20 @@
+import { getAllSvgs } from "@/actions/get-svgs";
 import { SVGDisplay } from "@/components/index/SVGDisplay";
+import { Sidebar } from "@/components/sidebar/Sidebar";
+import { Suspense } from "react";
 
 export default async function Page() {
-  "use cache";
+  // "use cache";
+  const svgs = await getAllSvgs();
+
   return (
     <main className="flex flex-1 overflow-y-auto">
-      <aside className="w-1/6 border-r border-border">Sidebar</aside>
-      <SVGDisplay />
+      <Suspense fallback={<div>Loading...</div>}>
+        {svgs ? <Sidebar svgs={svgs} /> : <div>No svgs found</div>}
+      </Suspense>
+      <Suspense fallback={<div>Loading...</div>}>
+        {svgs ? <SVGDisplay svgs={svgs} /> : <div>No svgs found</div>}
+      </Suspense>
     </main>
   );
 }
