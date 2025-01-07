@@ -1,5 +1,9 @@
 import "@/styles/globals.css";
-import { Radio_Canada_Big, DM_Serif_Display } from "next/font/google";
+import {
+  Radio_Canada_Big,
+  DM_Serif_Display,
+  JetBrains_Mono,
+} from "next/font/google";
 import { type Metadata } from "next";
 import { Providers } from "@/components/Providers";
 import { Navbar } from "@/components/Navbar/Navbar";
@@ -7,6 +11,10 @@ import { Navbar } from "@/components/Navbar/Navbar";
 const radioCanadaBig = Radio_Canada_Big({
   subsets: ["latin"],
   variable: "--font-radio-canada-big",
+});
+const jetBrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jet-brains-mono",
 });
 
 const dmSerifDisplay = DM_Serif_Display({
@@ -28,7 +36,7 @@ export default function RootLayout({
     <html
       suppressHydrationWarning
       lang="en"
-      className={`${radioCanadaBig.variable} ${dmSerifDisplay.variable}`}
+      className={`${radioCanadaBig.variable} ${dmSerifDisplay.variable} ${jetBrainsMono.variable}`}
     >
       <body className="flex h-screen flex-col">
         <Providers>
