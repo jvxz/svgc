@@ -1,8 +1,11 @@
-export default function Page() {
+import { SVGDisplay } from "@/components/index/SVGDisplay";
+
+export default async function Page() {
+  "use cache";
   return (
-    <main className="flex size-full">
+    <main className="flex flex-1 overflow-y-auto">
       <aside className="w-1/6 border-r border-border">Sidebar</aside>
-      <section className="h-full">SVGs</section>
+      <SVGDisplay />
     </main>
   );
 }

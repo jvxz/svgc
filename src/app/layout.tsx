@@ -30,7 +30,7 @@ export default function RootLayout({
       lang="en"
       className={`${radioCanadaBig.variable} ${dmSerifDisplay.variable}`}
     >
-      <body className="h-screen">
+      <body className="flex h-screen flex-col">
         <Providers>
           <Navbar />
           {children}
