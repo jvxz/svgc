@@ -5,7 +5,9 @@ import { Suspense } from "react";
 
 export default async function Page() {
   "use cache";
-  const svgs = await getAllSvgs();
+  const svgs = await getAllSvgs({
+    cache: "force-cache",
+  });
 
   return (
     <main className="flex flex-1 overflow-y-auto">

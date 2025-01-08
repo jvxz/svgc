@@ -22,9 +22,10 @@ const iSVGListSchema = z.array(iSVGSchema)
 export type iSVG = z.infer<typeof iSVGSchema>
 export type iSVGList = z.infer<typeof iSVGListSchema>
 
-export async function getAllSvgs() {
+export async function getAllSvgs(fetchOptions?: RequestInit) {
   try {
     const res = await fetch("https://api.svgl.app", {
+      ...fetchOptions,
       mode: 'no-cors',
       headers: {
         'Content-Type': 'application/json'
