@@ -1,9 +1,10 @@
-"use client";
 import { ScrollArea } from "../ui/scroll-area";
 import { SVGCard } from "./SVGCard";
-import { type iSVG } from "@/actions/get-svgs";
+import { getAllSvgs } from "@/actions/get-svgs";
 
-function SVGDisplay({ svgs }: { svgs: iSVG[] }) {
+async function SVGDisplay() {
+  const svgs = await getAllSvgs();
+
   return (
     <ScrollArea className="size-full">
       <div className="flex flex-wrap justify-evenly gap-6 p-6">
