@@ -26,6 +26,7 @@ export async function getAllSvgs(fetchOptions?: RequestInit) {
   try {
     const res = await fetch("https://api.svgl.app", {
       ...fetchOptions,
+      cache: 'force-cache',
       mode: 'no-cors',
       headers: {
         'Content-Type': 'application/json'
