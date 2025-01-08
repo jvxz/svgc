@@ -8,6 +8,7 @@ import { Suspense } from "react";
 import { Tooltip, TooltipTrigger, TooltipContent } from "../ui/tooltip";
 
 async function SVGDisplay({ svgs }: { svgs: iSVG[] }) {
+  "use cache";
   return (
     <ScrollArea className="size-full">
       <div className="flex flex-wrap justify-evenly gap-6 p-6">

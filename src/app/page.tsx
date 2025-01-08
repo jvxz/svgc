@@ -4,7 +4,7 @@ import { Sidebar } from "@/components/sidebar/Sidebar";
 import { Suspense } from "react";
 
 export default async function Page() {
-  // "use cache";
+  "use cache";
   const svgs = await getAllSvgs();
 
   return (

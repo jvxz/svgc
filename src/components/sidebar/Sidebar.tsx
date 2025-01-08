@@ -4,7 +4,8 @@ import { Toggle } from "../ui/toggle";
 import { ScrollArea } from "../ui/scroll-area";
 import { SidebarSearch } from "./SidebarSearch";
 
-function Sidebar({ svgs }: { svgs: iSVG[] }) {
+async function Sidebar({ svgs }: { svgs: iSVG[] }) {
+  "use cache";
   const getCategories = () => {
     const categories = svgs
       .map((svg) => svg.category)
