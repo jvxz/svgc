@@ -1,7 +1,7 @@
-import { Toggle } from "../ui/toggle";
-
 import { Badge } from "../ui/badge";
 import { getAllSvgs } from "@/actions/get-svgs";
+import { Button } from "../ui/button";
+import Link from "next/link";
 
 async function SidebarItems() {
   const svgs = await getAllSvgs();
@@ -25,14 +25,17 @@ async function SidebarItems() {
   return (
     <div className="flex flex-col gap-2 p-4">
       {categories.map((category) => (
-        <Toggle
+        <Button
+          asChild
           className="group flex items-center justify-between"
           key={category.name}
           variant="outline"
         >
-          {category.name}
-          <Badge variant="outline">{category.count}</Badge>
-        </Toggle>
+          <Link href={`/category/${category.name}`}>
+            {category.name}
+            <Badge variant="outline">{category.count}</Badge>
+          </Link>
+        </Button>
       ))}
     </div>
   );
