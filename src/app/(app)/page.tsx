@@ -6,7 +6,7 @@ import { Suspense } from "react";
 export default async function Page() {
   const svgs = await getAllSvgs();
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex size-full flex-col gap-2">
       <Suspense fallback={<SVGDisplaySuspense />}>
         {svgs && <SVGDisplay svgs={svgs} />}
       </Suspense>

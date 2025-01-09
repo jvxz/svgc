@@ -21,7 +21,7 @@ function SVGDisplay({ svgs }: { svgs: iSVG[] }) {
 
   return (
     <ScrollArea className="size-full">
-      <div className="flex flex-wrap justify-around gap-6 p-6">
+      <div className="flex flex-1 flex-wrap justify-evenly gap-6 p-6">
         {filteredSvgs ? (
           filteredSvgs
             .slice(0, svgsSection)
