@@ -1,8 +1,10 @@
 "use client";
 import { Input } from "@/components/ui/input";
+import { useInputStore } from "@/lib/store/input";
 import { useEffect, useRef } from "react";
 
 export function NavbarSearch() {
+  const { searchInput, setSearchInput } = useInputStore();
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -23,6 +25,8 @@ export function NavbarSearch() {
     <div className="flex-1 space-y-2">
       <div className="relative">
         <Input
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
           ref={inputRef}
           className="pe-11"
           placeholder="Search..."

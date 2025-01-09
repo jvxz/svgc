@@ -5,18 +5,18 @@ import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
 function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
 
   return (
     <div>
       <Toggle
         variant="outline"
-        className="data-[state=on]:hover:bg-muted group size-9 data-[state=on]:bg-transparent"
-        pressed={theme === "dark"}
+        className="group size-9 data-[state=on]:bg-transparent data-[state=on]:hover:bg-muted"
+        pressed={resolvedTheme === "dark"}
         onPressedChange={() =>
-          setTheme((prev) => (prev === "dark" ? "light" : "dark"))
+          setTheme(() => (resolvedTheme === "dark" ? "light" : "dark"))
         }
-        aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+        aria-label={`Switch to ${resolvedTheme === "dark" ? "light" : "dark"} mode`}
       >
         <Moon
           size={16}
