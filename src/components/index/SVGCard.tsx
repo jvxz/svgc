@@ -52,7 +52,14 @@ function SVGCard({ svg }: { svg: iSVG }) {
           alt={svg.title}
           width={24}
           height={24}
-          className="size-16"
+          className="block size-16 dark:hidden"
+        />
+        <Image
+          src={typeof svg.route === "string" ? svg.route : svg.route.dark}
+          alt={svg.title}
+          width={24}
+          height={24}
+          className="hidden size-16 dark:block"
         />
       </div>
       <div className="flex min-h-20 flex-col gap-3">

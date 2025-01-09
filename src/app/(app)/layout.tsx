@@ -1,8 +1,7 @@
-import { DisplayNavbar } from "@/components/index/DisplayNavbar";
+import { IndexBar } from "@/components/index/IndexBar";
 import { Navbar } from "@/components/navbar/Navbar";
 import { Providers } from "@/components/Providers";
 import { Sidebar } from "@/components/sidebar/Sidebar";
-import { SidebarSearch } from "@/components/sidebar/SidebarSearch";
 import "@/styles/globals.css";
 import { type Metadata } from "next";
 import {
@@ -44,12 +43,7 @@ export default function RootLayout({
       <body className="flex h-screen flex-col">
         <Providers>
           <Navbar />
-          <div className="flex h-16 border-b border-border">
-            <div className="flex h-full min-w-[20%] items-center justify-center border-r border-border px-4">
-              <SidebarSearch />
-            </div>
-            <DisplayNavbar />
-          </div>
+          <IndexBar />
           <main className="flex flex-1 overflow-y-auto">
             <Sidebar />
             {children}
