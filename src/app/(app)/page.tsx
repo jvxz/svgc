@@ -7,10 +7,8 @@ export default async function Page() {
   const svgs = await getAllSvgs();
   return (
     <div className="flex flex-col gap-2">
-      {/* <div className="grid w-full place-items-center"> */}
       <Suspense fallback={<SVGDisplaySuspense />}>
         {svgs && <SVGDisplay svgs={svgs} />}
-        {/* {svgs?.[0] && <SVGCard svg={svgs?.[0]} />} */}
       </Suspense>
     </div>
   );
