@@ -1,5 +1,6 @@
 import { getAllSvgs } from "@/actions/get-svgs";
 import { SVGDisplay } from "@/components/index/SVGDisplay";
+import { SVGDisplaySuspense } from "@/components/index/SVGDisplaySuspense";
 import { Suspense } from "react";
 
 export default async function Page({
@@ -17,7 +18,7 @@ export default async function Page({
   );
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<SVGDisplaySuspense />}>
       {svgsInCategory && svgs && <SVGDisplay svgs={svgsInCategory} />}
     </Suspense>
   );

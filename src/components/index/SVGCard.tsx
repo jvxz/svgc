@@ -9,13 +9,19 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 function SVGCard({ svg }: { svg: iSVG }) {
   const categories = () => {
     if (typeof svg.category === "string") {
-      return <Badge variant="outline">{svg.category}</Badge>;
+      return (
+        <Badge className="font-mono" variant="outline">
+          {svg.category === "Authentication" ? "Auth" : svg.category}
+        </Badge>
+      );
     }
 
     if (svg.category.length >= 3) {
       return (
         <>
-          <Badge variant="outline">{svg.category[0]}</Badge>
+          <Badge className="font-mono" variant="outline">
+            {svg.category[0] === "Authentication" ? "Auth" : svg.category[0]}
+          </Badge>
           <Tooltip delayDuration={0}>
             <TooltipTrigger className="cursor-default">
               <Badge variant="outline">...</Badge>
@@ -28,16 +34,16 @@ function SVGCard({ svg }: { svg: iSVG }) {
       );
     } else {
       return svg.category.map((category) => (
-        <Badge key={category} variant="outline">
-          {category}
+        <Badge key={category} variant="outline" className="font-mono">
+          {category === "Authentication" ? "Auth" : category}
         </Badge>
       ));
     }
   };
 
   return (
-    <div className="motion-preset-fade flex h-60 w-64 flex-col rounded-xl border border-border text-center">
-      <div className="flex min-h-12 items-center justify-center">
+    <div className="motion-preset-fade flex size-52 flex-col rounded-xl border border-border text-center">
+      <div className="flex min-h-10 items-end justify-center">
         <Link
           className="cursor-pointer underline-offset-2 hover:underline"
           target="_blank"
@@ -50,16 +56,16 @@ function SVGCard({ svg }: { svg: iSVG }) {
         <Image
           src={typeof svg.route === "string" ? svg.route : svg.route.light}
           alt={svg.title}
-          width={24}
-          height={24}
-          className="block size-16 dark:hidden"
+          width={48}
+          height={48}
+          className="block size-12 dark:hidden"
         />
         <Image
           src={typeof svg.route === "string" ? svg.route : svg.route.dark}
           alt={svg.title}
-          width={24}
-          height={24}
-          className="hidden size-16 dark:block"
+          width={48}
+          height={48}
+          className="hidden size-12 dark:block"
         />
       </div>
       <div className="flex min-h-20 flex-col gap-3">

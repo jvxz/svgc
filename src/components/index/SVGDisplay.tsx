@@ -24,8 +24,8 @@ function SVGDisplay({ svgs }: { svgs: iSVG[] }) {
   return (
     <ScrollArea className="size-full">
       <div className="flex flex-wrap justify-around gap-6 p-6">
-        {svgsSection ? (
-          svgsSection.map((svg) => {
+        {svgs ? (
+          svgs.map((svg) => {
             return <SVGCard key={svg.id} svg={svg} />;
           })
         ) : (

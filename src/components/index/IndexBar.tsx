@@ -8,7 +8,7 @@ function IndexBar() {
       <div className="flex h-full min-w-[20%] items-center justify-center border-r border-border px-4">
         <SidebarSearch />
       </div>
-      <Suspense>
+      <Suspense fallback={<div>Loading...</div>}>
         <DisplayNavbar />
       </Suspense>
     </div>
