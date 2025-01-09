@@ -42,7 +42,7 @@ function SVGCard({ svg }: { svg: iSVG }) {
   };
 
   return (
-    <div className="motion-preset-fade flex size-52 flex-col rounded-xl border border-border text-center">
+    <div className="flex size-52 flex-col rounded-xl border border-border text-center">
       <div className="flex min-h-10 items-end justify-center">
         <Link
           className="cursor-pointer underline-offset-2 hover:underline"
