@@ -48,9 +48,7 @@ export default function RootLayout({
             <div className="flex h-full min-w-[20%] items-center justify-center border-r border-border px-4">
               <SidebarSearch />
             </div>
-            <div className="flex h-full flex-1 items-center justify-center px-4">
-              <DisplayNavbar />
-            </div>
+            <DisplayNavbar />
           </div>
           <main className="flex flex-1 overflow-y-auto">
             <Sidebar />

@@ -1,26 +1,31 @@
 "use client";
 import { type iSVG } from "@/actions/get-svgs";
 import { PAGE_SIZE } from "@/lib/config";
+import { useTotalPagesStore } from "@/lib/store/total-pages";
 import { useQueryState } from "nuqs";
+import { useEffect } from "react";
 import { ScrollArea } from "../ui/scroll-area";
 import { SVGCard } from "./SVGCard";
 
 function SVGDisplay({ svgs }: { svgs: iSVG[] }) {
+  const { setTotalPages } = useTotalPagesStore();
   const [page] = useQueryState("page");
-  const [category] = useQueryState("category");
 
-  const pageNumber = page ? parseInt(page) : 1;
+  const currentPage = page ? parseInt(page) : 1;
+  const svgsSection = svgs.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE,
+  );
 
-  const start = (pageNumber - 1) * PAGE_SIZE;
-  const end = start + PAGE_SIZE;
-
-  const svgsToDisplay = svgs.slice(start, end);
+  useEffect(() => {
+    if (svgs) setTotalPages(Math.floor(svgs.length / PAGE_SIZE));
+  }, [setTotalPages, svgs]);
 
   return (
     <ScrollArea className="size-full">
       <div className="flex flex-wrap justify-around gap-6 p-6">
-        {svgsToDisplay ? (
-          svgsToDisplay.map((svg) => {
+        {svgsSection ? (
+          svgsSection.map((svg) => {
             return <SVGCard key={svg.id} svg={svg} />;
           })
         ) : (
