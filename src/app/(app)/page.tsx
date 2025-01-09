@@ -5,8 +5,11 @@ import { Suspense } from "react";
 export default async function Page() {
   const svgs = await getAllSvgs();
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      {svgs && <SVGDisplay svgs={svgs} />}
-    </Suspense>
+    <div className="flex flex-col gap-2">
+      <div className="h-[4.5rem] border-b border-border"></div>
+      <Suspense fallback={<div>Loading...</div>}>
+        {svgs && <SVGDisplay svgs={svgs} />}
+      </Suspense>
+    </div>
   );
 }

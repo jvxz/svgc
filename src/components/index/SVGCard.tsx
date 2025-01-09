@@ -1,10 +1,10 @@
 import { type iSVG } from "@/actions/get-svgs";
+import { Copy, ExternalLink, Plus } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
-import Image from "next/image";
-import { Plus, Copy, ExternalLink } from "lucide-react";
-import Link from "next/link";
 
 function SVGCard({ svg }: { svg: iSVG }) {
   const categories = () => {
@@ -36,7 +36,7 @@ function SVGCard({ svg }: { svg: iSVG }) {
   };
 
   return (
-    <div className="flex h-60 w-64 flex-col rounded-xl border border-border text-center">
+    <div className="motion-preset-fade flex h-60 w-64 flex-col rounded-xl border border-border text-center">
       <div className="flex min-h-12 items-center justify-center">
         <Link
           className="cursor-pointer underline-offset-2 hover:underline"
