@@ -8,7 +8,7 @@ function Sidebar() {
       <div className="max-h-[4.5rem] border-b border-border p-4">
         <SidebarSearch />
       </div>
-      <ScrollArea className="h-[calc(100%-4.25rem)]">
+      <ScrollArea className="h-[calc(100%-4.5rem)]">
         <SidebarItems />
       </ScrollArea>
     </aside>

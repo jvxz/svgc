@@ -9,10 +9,16 @@ export default async function Page({
 }) {
   const slug = (await params).slug;
   const svgs = await getAllSvgs();
-  const svgsInCategory = svgs?.filter((svg) => svg.category === slug);
+
+  const svgsInCategory = svgs?.filter((svg) =>
+    typeof svg.category === "string"
+      ? svg.category === slug
+      : svg.category.includes(slug),
+  );
+
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      {svgsInCategory && <SVGDisplay svgs={svgsInCategory} />}
+      {svgsInCategory && svgs && <SVGDisplay svgs={svgsInCategory} />}
     </Suspense>
   );
 }
