@@ -1,6 +1,4 @@
-import { IndexBar } from "@/components/index/IndexBar";
 import { Providers } from "@/components/Providers";
-import { Sidebar } from "@/components/sidebar/Sidebar";
 import "@/styles/globals.css";
 import { type Metadata } from "next";
 import {
@@ -40,13 +38,7 @@ export default function RootLayout({
       className={`${radioCanadaBig.variable} ${dmSerifDisplay.variable} ${jetBrainsMono.variable}`}
     >
       <body className="flex h-screen flex-col">
-        <Providers>
-          <IndexBar />
-          <main className="flex flex-1 overflow-y-auto">
-            <Sidebar />
-            {children}
-          </main>
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
