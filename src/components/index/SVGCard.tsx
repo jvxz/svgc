@@ -1,4 +1,6 @@
+"use client";
 import { type iSVG } from "@/actions/get-svgs";
+import { useItemsStore } from "@/lib/store/items";
 import { Copy, ExternalLink, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,6 +9,8 @@ import { Button } from "../ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 function SVGCard({ svg }: { svg: iSVG }) {
+  const { addItem, removeItem, items } = useItemsStore();
+
   const categories = () => {
     if (typeof svg.category === "string") {
       return (
@@ -73,8 +77,23 @@ function SVGCard({ svg }: { svg: iSVG }) {
           {categories()}
         </div>
         <div className="flex items-center justify-center gap-1">
-          <Button className="!size-8 rounded-full" variant="ghost">
-            <Plus className="!size-5" />
+          <Button
+            className="!size-8 rounded-full"
+            variant="ghost"
+            onClick={() => {
+              if (items.includes(svg)) {
+                removeItem(svg);
+              } else {
+                addItem(svg);
+              }
+            }}
+          >
+            <Plus
+              className={
+                "!size-5 transition-all " +
+                (items.includes(svg) ? "rotate-45 text-red-500" : "")
+              }
+            />
           </Button>
           <Button className="!size-8 rounded-full" variant="ghost">
             <Copy className="!size-5" />
