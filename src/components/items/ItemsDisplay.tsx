@@ -1,25 +1,53 @@
 "use client";
 import { useItemsStore } from "@/lib/store/items";
-import { useState } from "react";
+import { useTheme } from "next-themes";
+import Image from "next/image";
 import { GridBackground } from "../GridBackground";
-import { ItemsDropdown } from "./ItemsDropdown";
+import { NoItemsState } from "./NoItemsState";
 
 function ItemsDisplay() {
+  const { resolvedTheme } = useTheme();
   const { items } = useItemsStore();
-  const [selectedItem, setSelectedItem] = useState(items[0]?.title);
+
+  function getRoute(item: (typeof items)[0]) {
+    return typeof item.route === "string"
+      ? item.route
+      : resolvedTheme === "dark"
+        ? item.route.dark
+        : item.route.light;
+  }
 
   return (
-    <div className="relative grid size-1/2 h-full place-items-center border-r border-border">
+    <div className="grid size-1/2 h-full place-items-center border-r border-border">
       <GridBackground>
-        {items.length > 0 ? (
-          <>
-            <ItemsDropdown setSelectedItem={setSelectedItem} />
-            <p>{selectedItem}</p>
-          </>
+        {items.length > 0 && items[0] && items[1] && items[2] ? (
+          <div className="group grid size-full place-items-center duration-500 *:size-24 *:transition-transform">
+            <div className="relative -translate-x-1/2">
+              <Image
+                src={getRoute(items[0])}
+                alt={items[0]?.title}
+                width={100}
+                height={100}
+                className="absolute left-1/2 top-1/2 -translate-x-12 -translate-y-1/2 group-hover:-translate-x-24"
+              />
+              <Image
+                src={getRoute(items[1])}
+                alt={items[1]?.title}
+                width={100}
+                height={100}
+                className="absolute left-1/2 top-1/2 -translate-y-1/2"
+              />
+              <Image
+                src={getRoute(items[2])}
+                alt={items[2]?.title}
+                width={100}
+                height={100}
+                className="absolute left-1/2 top-1/2 -translate-y-1/2 translate-x-12 group-hover:translate-x-24"
+              />
+            </div>
+          </div>
         ) : (
-          <h1 className="motion-preset-focus text-2xl font-bold shadow">
-            No items selected
-          </h1>
+          <NoItemsState />
         )}
       </GridBackground>
     </div>

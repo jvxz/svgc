@@ -117,5 +117,6 @@ export default {
 				{ values: flattenColorPalette(theme("backgroundColor")), type: "color" }
 			);
 		}),
+		require('tailwindcss-motion'),
 	],
 } satisfies Config;
