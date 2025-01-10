@@ -65,6 +65,10 @@ function SVGCard({ svg }: { svg: iSVG }) {
           width={48}
           height={48}
           className="block size-12 dark:hidden"
+          blurDataURL={
+            typeof svg.route === "string" ? svg.route : svg.route.light
+          }
+          placeholder="blur"
         />
         <Image
           src={typeof svg.route === "string" ? svg.route : svg.route.dark}
@@ -72,6 +76,10 @@ function SVGCard({ svg }: { svg: iSVG }) {
           width={48}
           height={48}
           className="hidden size-12 dark:block"
+          blurDataURL={
+            typeof svg.route === "string" ? svg.route : svg.route.dark
+          }
+          placeholder="blur"
         />
       </div>
       <div className="flex min-h-20 flex-col gap-3">

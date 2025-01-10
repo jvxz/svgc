@@ -37,7 +37,7 @@ function SidebarItems({ svgs }: { svgs: iSVG[] }) {
             key={category.name}
             variant="outline"
           >
-            <Link href={`/category/${category.name}`}>
+            <Link replace href={`/?category=${category.name}`}>
               {category.name}
               <Badge variant="outline">{category.count}</Badge>
             </Link>
