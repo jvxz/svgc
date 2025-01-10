@@ -4,6 +4,7 @@ import { useItemsStore } from "@/lib/store/items";
 import { Copy, ExternalLink, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 import { Badge } from "../ui/badge";
 import { BadgeLink } from "../ui/badge-link";
 import { Button } from "../ui/button";
@@ -59,28 +60,30 @@ function SVGCard({ svg }: { svg: iSVG }) {
         </Link>
       </div>
       <div className="flex flex-1 items-center justify-center">
-        <Image
-          src={typeof svg.route === "string" ? svg.route : svg.route.light}
-          alt={svg.title}
-          width={48}
-          height={48}
-          className="block size-12 dark:hidden"
-          blurDataURL={
-            typeof svg.route === "string" ? svg.route : svg.route.light
+        <Suspense
+          fallback={
+            <div className="size-12 animate-pulse rounded-xl bg-muted" />
           }
-          placeholder="blur"
-        />
-        <Image
-          src={typeof svg.route === "string" ? svg.route : svg.route.dark}
-          alt={svg.title}
-          width={48}
-          height={48}
-          className="hidden size-12 dark:block"
-          blurDataURL={
-            typeof svg.route === "string" ? svg.route : svg.route.dark
-          }
-          placeholder="blur"
-        />
+        >
+          <Image
+            loading="lazy"
+            unoptimized
+            src={typeof svg.route === "string" ? svg.route : svg.route.light}
+            alt={svg.title}
+            width={48}
+            height={48}
+            className="block size-12 dark:hidden"
+          />
+          <Image
+            loading="lazy"
+            unoptimized
+            src={typeof svg.route === "string" ? svg.route : svg.route.dark}
+            alt={svg.title}
+            width={48}
+            height={48}
+            className="hidden size-12 dark:block"
+          />
+        </Suspense>
       </div>
       <div className="flex min-h-20 flex-col gap-3">
         <div className="flex items-center justify-center gap-1">
