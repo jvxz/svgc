@@ -1,6 +1,6 @@
 'use server'
-import { z } from 'zod'
 import { optimize } from 'svgo';
+import { z } from 'zod';
 
 
 const themeOptionsSchema = z.object({
@@ -20,7 +20,6 @@ const iSVGSchema = z.object({
 const iSVGListSchema = z.array(iSVGSchema)
 
 export type iSVG = z.infer<typeof iSVGSchema>
-export type iSVGList = z.infer<typeof iSVGListSchema>
 
 export async function getAllSvgs(fetchOptions?: RequestInit) {
   try {
