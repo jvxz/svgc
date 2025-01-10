@@ -9,10 +9,10 @@ import { SVGCard } from "./SVGCard";
 
 function SVGDisplay({ svgs }: { svgs: Logo[] }) {
   const { searchInput } = useInputStore();
-  const [svgsSection, setSvgSection] = useState(24);
+  const [svgsSection, setSvgSection] = useState(32);
 
   useEffect(() => {
-    setSvgSection(24);
+    setSvgSection(32);
   }, [searchInput]);
 
   const filteredSvgs = svgs.filter((svg) => {
@@ -31,7 +31,7 @@ function SVGDisplay({ svgs }: { svgs: Logo[] }) {
         <div className="flex justify-center pb-4">
           <Button
             variant="ghost"
-            onClick={() => setSvgSection(svgsSection + 24)}
+            onClick={() => setSvgSection(svgsSection + 32)}
           >
             Show more
             <ChevronDown className="size-4" />

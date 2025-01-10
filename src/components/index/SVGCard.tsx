@@ -15,12 +15,14 @@ function SVGCard({ svg }: { svg: Logo }) {
   );
 
   return (
-    <div className="flex size-52 flex-col rounded-xl border border-border text-center">
+    <div className="relative flex size-52 flex-col rounded-xl border border-border text-center">
+      <div className="absolute inset-0 size-full -translate-y-2 scale-[0.35] rounded-full bg-foreground opacity-10 blur-3xl dark:opacity-[5%]" />
       <div className="flex min-h-10 items-end justify-center">
         <Link
-          className="cursor-pointer underline-offset-2 hover:underline"
+          className="mx-4 cursor-pointer truncate underline-offset-2 hover:underline"
           target="_blank"
           href={svg.url}
+          title={svg.name}
         >
           {svg.name}
         </Link>
@@ -38,20 +40,11 @@ function SVGCard({ svg }: { svg: Logo }) {
             alt={svg.name}
             width={48}
             height={48}
-            className="block size-12 dark:hidden"
-          />
-          <Image
-            loading="lazy"
-            unoptimized
-            src={`https://raw.githubusercontent.com/gilbarbara/logos/refs/heads/main/logos/${svg.files[0]}`}
-            alt={svg.name}
-            width={48}
-            height={48}
-            className="hidden size-12 dark:block"
+            className="size-12"
           />
         </Suspense>
       </div>
-      <div className="flex min-h-20 flex-col gap-3">
+      <div className="flex flex-col gap-3 py-4">
         <div className="flex items-center justify-center gap-1">
           <Button
             className="!size-8 rounded-full"
