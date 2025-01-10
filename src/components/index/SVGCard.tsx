@@ -5,6 +5,7 @@ import { Copy, ExternalLink, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "../ui/badge";
+import { BadgeLink } from "../ui/badge-link";
 import { Button } from "../ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
@@ -14,18 +15,19 @@ function SVGCard({ svg }: { svg: iSVG }) {
   const categories = () => {
     if (typeof svg.category === "string") {
       return (
-        <Badge className="font-mono" variant="outline">
+        <BadgeLink href={`/category/${svg.category}`}>
           {svg.category === "Authentication" ? "Auth" : svg.category}
-        </Badge>
+        </BadgeLink>
       );
     }
 
     if (svg.category.length >= 3) {
+      const category: string = svg.category[0] ?? "";
       return (
         <>
-          <Badge className="font-mono" variant="outline">
-            {svg.category[0] === "Authentication" ? "Auth" : svg.category[0]}
-          </Badge>
+          <BadgeLink href={`/category/${category}`}>
+            {category === "Authentication" ? "Auth" : category}
+          </BadgeLink>
           <Tooltip delayDuration={0}>
             <TooltipTrigger className="cursor-default">
               <Badge variant="outline">...</Badge>
@@ -38,9 +40,9 @@ function SVGCard({ svg }: { svg: iSVG }) {
       );
     } else {
       return svg.category.map((category) => (
-        <Badge key={category} variant="outline" className="font-mono">
+        <BadgeLink key={category} href={`/category/${category}`}>
           {category === "Authentication" ? "Auth" : category}
-        </Badge>
+        </BadgeLink>
       ));
     }
   };
