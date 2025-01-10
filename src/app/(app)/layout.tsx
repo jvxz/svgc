@@ -1,5 +1,4 @@
 import { IndexBar } from "@/components/index/IndexBar";
-import { Navbar } from "@/components/navbar/Navbar";
 import { Providers } from "@/components/Providers";
 import { Sidebar } from "@/components/sidebar/Sidebar";
 import "@/styles/globals.css";
@@ -42,7 +41,6 @@ export default function RootLayout({
     >
       <body className="flex h-screen flex-col">
         <Providers>
-          <Navbar />
           <IndexBar />
           <main className="flex flex-1 overflow-y-auto">
             <Sidebar />

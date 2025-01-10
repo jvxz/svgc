@@ -1,3 +1,4 @@
+import { Navbar } from "@/components/navbar/Navbar";
 import { Providers } from "@/components/Providers";
 import "@/styles/globals.css";
 import { type Metadata } from "next";
@@ -38,7 +39,10 @@ export default function RootLayout({
       className={`${radioCanadaBig.variable} ${dmSerifDisplay.variable} ${jetBrainsMono.variable}`}
     >
       <body className="flex h-screen flex-col">
-        <Providers>{children}</Providers>
+        <Providers>
+          <Navbar />
+          {children}
+        </Providers>
       </body>
     </html>
   );
