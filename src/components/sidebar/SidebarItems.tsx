@@ -1,48 +1,50 @@
 "use client";
-import { type iSVG } from "@/actions/get-svgs";
 import { useInputStore } from "@/lib/store/input";
-import Link from "next/link";
-import { Badge } from "../ui/badge";
+import { useItemsStore } from "@/lib/store/items";
+import { getImageUrl } from "@/lib/utils";
+import autoAnimate from "@formkit/auto-animate";
+import Image from "next/image";
+import { useEffect, useRef } from "react";
 import { Button } from "../ui/button";
 
-function SidebarItems({ svgs }: { svgs: iSVG[] }) {
-  const { categoryInput } = useInputStore();
+function SidebarItems() {
+  const parent = useRef(null);
+  const { items } = useItemsStore();
+  const { itemInput } = useInputStore();
 
-  const getCategories = () => {
-    const categories = svgs
-      ?.map((svg) => svg.category)
-      .flat()
-      .sort();
+  const filteredItems = items.filter((item) =>
+    item.name.toLowerCase().includes(itemInput.toLowerCase()),
+  );
 
-    const uniqueCategories = [...new Set(categories)];
-    const categoryCount = uniqueCategories.map((category) => ({
-      name: category,
-      count: categories?.filter((c) => c === category).length,
-    }));
-    return categoryCount;
-  };
-
-  const categories = getCategories();
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    parent.current &&
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      autoAnimate(parent.current, {
+        duration: 125,
+      });
+  }, []);
 
   return (
-    <div className="flex flex-col gap-2 p-4">
-      {categories
-        .filter((category) =>
-          category.name.toLowerCase().includes(categoryInput.toLowerCase()),
-        )
-        .map((category) => (
+    <div className="flex flex-col gap-2">
+      <div className="flex flex-1 flex-col gap-2 p-4" ref={parent}>
+        {filteredItems.map((item) => (
           <Button
-            asChild
-            className="group flex items-center justify-between"
-            key={category.name}
+            className="flex w-full items-center justify-between"
             variant="outline"
+            key={item.name}
           >
-            <Link replace href={`/?category=${category.name}`}>
-              {category.name}
-              <Badge variant="outline">{category.count}</Badge>
-            </Link>
+            {item.name}
+            <Image
+              src={getImageUrl(item.files[0]!)}
+              alt={item.name}
+              width={20}
+              height={20}
+              className="size-4"
+            />
           </Button>
         ))}
+      </div>
     </div>
   );
 }
