@@ -1,72 +1,26 @@
 'use server'
-import { optimize } from 'svgo';
 import { z } from 'zod';
 
+const LogoSchema = z.array(
+  z.object({
+    name: z.string(),
+    shortname: z.string(),
+    url: z.string(),
+    files: z.array(z.string())
+  })
+)
 
-const themeOptionsSchema = z.object({
-  light: z.string(),
-  dark: z.string()
-})
-
-const iSVGSchema = z.object({
-  id: z.number(),
-  title: z.string(),
-  category: z.union([z.string(), z.array(z.string())]),
-  route: z.union([z.string(), themeOptionsSchema]),
-  wordmark: z.union([z.string(), themeOptionsSchema]).optional(),
-  url: z.string()
-})
-
-const iSVGListSchema = z.array(iSVGSchema)
-
-export type iSVG = z.infer<typeof iSVGSchema>
+export type LogoList = z.infer<typeof LogoSchema>
+export type Logo = LogoList[number]
 
 export async function getAllSvgs(fetchOptions?: RequestInit) {
   try {
-    const res = await fetch("https://api.svgl.app", {
+    const res = await fetch("https://github.com/gilbarbara/logos/raw/refs/heads/main/logos.json", {
       ...fetchOptions,
-      cache: 'force-cache',
-      mode: 'no-cors',
-      headers: {
-        'Content-Type': 'application/json'
-      }
     })
     const data: unknown = await res.json()
-    const parsedData = iSVGListSchema.parse(data)
+    const parsedData = LogoSchema.parse(data)
     return parsedData
-  } catch (error) {
-    console.error(error)
-  }
-}
-
-export async function getSVG(search: string) {
-  try {
-    const res = await fetch(`https://api.svgl.app?search=${search}`, {
-      mode: 'no-cors',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const data: unknown = await res.json()
-    const parsedData = iSVGListSchema.parse(data)
-    if (!parsedData[0]) throw new Error('No data found')
-
-    const svgIsColored = typeof parsedData[0].route === 'string' ? false : true
-
-    const svgUrl = typeof parsedData[0].route === 'string' ? parsedData[0].route : parsedData[0].route.light;
-    const svgRes = await fetch(svgUrl);
-    const svgContent = await svgRes.text();
-
-    const optimizedSvg = optimize(svgContent)
-
-    const svg = svgIsColored ? optimizedSvg.data.replace(/fill="#[A-Fa-f0-9]{3,6}"/g, 'fill="currentColor"') : optimizedSvg.data
-
-    return {
-      svg,
-      title: parsedData[0].title,
-      category: parsedData[0].category,
-      route: parsedData[0].route
-    }
   } catch (error) {
     console.error(error)
   }

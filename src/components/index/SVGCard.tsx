@@ -1,52 +1,18 @@
 "use client";
-import { type iSVG } from "@/actions/get-svgs";
+import { type Logo } from "@/actions/get-svgs";
 import { useItemsStore } from "@/lib/store/items";
 import { Copy, ExternalLink, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
-import { Badge } from "../ui/badge";
-import { BadgeLink } from "../ui/badge-link";
 import { Button } from "../ui/button";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
-function SVGCard({ svg }: { svg: iSVG }) {
+function SVGCard({ svg }: { svg: Logo }) {
   const { addItem, removeItem, items } = useItemsStore();
 
-  const categories = () => {
-    if (typeof svg.category === "string") {
-      return (
-        <BadgeLink href={`/category/${svg.category}`}>
-          {svg.category === "Authentication" ? "Auth" : svg.category}
-        </BadgeLink>
-      );
-    }
-
-    if (svg.category.length >= 3) {
-      const category: string = svg.category[0] ?? "";
-      return (
-        <>
-          <BadgeLink href={`/category/${category}`}>
-            {category === "Authentication" ? "Auth" : category}
-          </BadgeLink>
-          <Tooltip delayDuration={0}>
-            <TooltipTrigger className="cursor-default">
-              <Badge variant="outline">...</Badge>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>{svg.category.join(", ")}</p>
-            </TooltipContent>
-          </Tooltip>
-        </>
-      );
-    } else {
-      return svg.category.map((category) => (
-        <BadgeLink key={category} href={`/category/${category}`}>
-          {category === "Authentication" ? "Auth" : category}
-        </BadgeLink>
-      ));
-    }
-  };
+  console.log(
+    `https://raw.githubusercontent.com/gilbarbara/logos/refs/heads/main/logos/${svg.files[0]}`,
+  );
 
   return (
     <div className="flex size-52 flex-col rounded-xl border border-border text-center">
@@ -56,7 +22,7 @@ function SVGCard({ svg }: { svg: iSVG }) {
           target="_blank"
           href={svg.url}
         >
-          {svg.title}
+          {svg.name}
         </Link>
       </div>
       <div className="flex flex-1 items-center justify-center">
@@ -68,8 +34,8 @@ function SVGCard({ svg }: { svg: iSVG }) {
           <Image
             loading="lazy"
             unoptimized
-            src={typeof svg.route === "string" ? svg.route : svg.route.light}
-            alt={svg.title}
+            src={`https://raw.githubusercontent.com/gilbarbara/logos/refs/heads/main/logos/${svg.files[0]}`}
+            alt={svg.name}
             width={48}
             height={48}
             className="block size-12 dark:hidden"
@@ -77,8 +43,8 @@ function SVGCard({ svg }: { svg: iSVG }) {
           <Image
             loading="lazy"
             unoptimized
-            src={typeof svg.route === "string" ? svg.route : svg.route.dark}
-            alt={svg.title}
+            src={`https://raw.githubusercontent.com/gilbarbara/logos/refs/heads/main/logos/${svg.files[0]}`}
+            alt={svg.name}
             width={48}
             height={48}
             className="hidden size-12 dark:block"
@@ -86,9 +52,6 @@ function SVGCard({ svg }: { svg: iSVG }) {
         </Suspense>
       </div>
       <div className="flex min-h-20 flex-col gap-3">
-        <div className="flex items-center justify-center gap-1">
-          {categories()}
-        </div>
         <div className="flex items-center justify-center gap-1">
           <Button
             className="!size-8 rounded-full"
