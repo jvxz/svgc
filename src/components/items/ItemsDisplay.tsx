@@ -1,7 +1,6 @@
 "use client";
 import { useItemsStore } from "@/lib/store/items";
 import { getImageUrl } from "@/lib/utils";
-import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { GridBackground } from "../GridBackground";
 import { ItemsDropdown } from "./ItemsDropdown";
@@ -16,22 +15,13 @@ function ItemsDisplay() {
 
       <GridBackground>
         {items.length > 0 && items[selectedItemIndex] ? (
-          <AnimatePresence>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Image
-                src={getImageUrl(items[selectedItemIndex]?.files[0] ?? "")}
-                alt={items[selectedItemIndex]?.name ?? ""}
-                width={256}
-                height={256}
-                className="size-42"
-              />
-            </motion.div>
-          </AnimatePresence>
+          <Image
+            src={getImageUrl(items[selectedItemIndex]?.files[0] ?? "")}
+            alt={items[selectedItemIndex]?.name ?? ""}
+            width={256}
+            height={256}
+            className="size-42 z-10"
+          />
         ) : (
           <NoItemsState />
         )}
