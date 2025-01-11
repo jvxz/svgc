@@ -14,7 +14,7 @@ function ItemsDropdown() {
   const { items, setSelectedItemIndex, selectedItemIndex } = useItemsStore();
 
   return (
-    <div className="flex h-16 items-center justify-center gap-4 border-b border-border px-8">
+    <div className="flex min-h-16 items-center justify-center gap-4 border-b border-border px-8">
       <Button
         disabled={items.length === 0}
         onClick={() => {
