@@ -7,5 +7,5 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function getImageUrl(svgLink: Logo["files"][number]) {
-  return `https://raw.githubusercontent.com/gilbarbara/logos/refs/heads/main/logos/${svgLink}`;
+  return `https://zrevwgazrkablpkwsbfe.supabase.co/storage/v1/object/public/svgs/${svgLink}`;
 }

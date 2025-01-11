@@ -7,6 +7,7 @@ import { Suspense } from "react";
 
 export default async function Page() {
   const svgs = await getAllSvgs();
+
   return (
     <>
       <IndexBar />

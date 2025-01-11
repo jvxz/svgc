@@ -15,12 +15,16 @@ export type Logo = LogoList[number]
 
 export async function getAllSvgs(fetchOptions?: RequestInit) {
   try {
-    const res = await fetch("https://github.com/gilbarbara/logos/raw/refs/heads/main/logos.json", {
-      ...fetchOptions,
-    })
-    const data: unknown = await res.json()
-    const parsedData = LogoSchema.parse(data)
-    return parsedData
+    const res = await fetch(
+      "https://zrevwgazrkablpkwsbfe.supabase.co/storage/v1/object/public/svgs/logos.json",
+      {
+        ...fetchOptions,
+        cache: "force-cache",
+      },
+    );
+    const data: unknown = await res.json();
+    const parsedData = LogoSchema.parse(data);
+    return parsedData;
   } catch (error) {
     console.error(error)
   }

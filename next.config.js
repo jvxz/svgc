@@ -3,6 +3,14 @@
  * for Docker builds.
  */
 /** @type {import("next").NextConfig} */
-const config = {};
+const config = {
+    images: {
+        remotePatterns: [
+            {
+                hostname: "zrevwgazrkablpkwsbfe.supabase.co",
+            },
+        ],
+    },
+};
 
 export default config;

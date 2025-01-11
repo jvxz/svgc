@@ -1,6 +1,7 @@
 "use client";
 import { type Logo } from "@/actions/get-svgs";
 import { useItemsStore } from "@/lib/store/items";
+import { getImageUrl } from "@/lib/utils";
 import { Copy, ExternalLink, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,9 +11,7 @@ import { Button } from "../ui/button";
 function SVGCard({ svg }: { svg: Logo }) {
   const { addItem, removeItem, items } = useItemsStore();
 
-  console.log(
-    `https://raw.githubusercontent.com/gilbarbara/logos/refs/heads/main/logos/${svg.files[0]}`,
-  );
+  const imageUrl = getImageUrl(svg.files[0]!);
 
   return (
     <div className="relative flex size-52 flex-col rounded-xl border border-border text-center">
@@ -36,7 +35,7 @@ function SVGCard({ svg }: { svg: Logo }) {
           <Image
             loading="lazy"
             unoptimized
-            src={`https://raw.githubusercontent.com/gilbarbara/logos/refs/heads/main/logos/${svg.files[0]}`}
+            src={imageUrl}
             alt={svg.name}
             width={48}
             height={48}
