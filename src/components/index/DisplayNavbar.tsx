@@ -1,7 +1,7 @@
 "use client";
 import { AnimatePresence } from "motion/react";
 import { useQueryState } from "nuqs";
-import { NavbarSearch } from "../navbar_temp/NavbarSearch";
+import { NavbarSearch } from "../navbar/NavbarSearch";
 import { NavbarViewAll } from "./NavbarViewAll";
 
 function DisplayNavbar() {
