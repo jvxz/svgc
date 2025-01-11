@@ -2174,6 +2174,13 @@ fast-uri@^3.0.1:
   resolved "https://registry.npmjs.org/fast-uri/-/fast-uri-3.0.5.tgz"
   integrity sha512-5JnBCWpFlMo0a3ciDy/JckMzzv1U9coZrIhedq+HXxxUfDTAiS0LA8OKVao4G9BxmCVck/jtA5r3KAtRWEyD8Q==
 
+fast-xml-parser@^4.4.1:
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-4.5.1.tgz#a7e665ff79b7919100a5202f23984b6150f9b31e"
+  integrity sha512-y655CeyUQ+jj7KBbYMc4FG01V8ZQqjN+gDYGJ50RtfsUB8iG9AmwmwoAgeKLJdmueKKMrH1RJ7yXHTSoczdv5w==
+  dependencies:
+    strnum "^1.0.5"
+
 fastq@^1.6.0:
   version "1.18.0"
   resolved "https://registry.npmjs.org/fastq/-/fastq-1.18.0.tgz"
@@ -2692,6 +2699,13 @@ is-string@^1.0.7, is-string@^1.1.1:
   dependencies:
     call-bound "^1.0.3"
     has-tostringtag "^1.0.2"
+
+is-svg@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/is-svg/-/is-svg-5.1.0.tgz#fdeeea1dc28b72f1cb5d36f44dfd8f6ad1e05caa"
+  integrity sha512-uVg5yifaTxHoefNf5Jcx+i9RZe2OBYd/UStp1umx+EERa4xGRa3LLGXjoEph43qUORC0qkafUgrXZ6zzK89yGA==
+  dependencies:
+    fast-xml-parser "^4.4.1"
 
 is-symbol@^1.0.4, is-symbol@^1.1.1:
   version "1.1.1"
@@ -3880,6 +3894,11 @@ strip-json-comments@^3.1.1:
   version "3.1.1"
   resolved "https://registry.npmjs.org/strip-json-comments/-/strip-json-comments-3.1.1.tgz"
   integrity sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==
+
+strnum@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/strnum/-/strnum-1.0.5.tgz#5c4e829fe15ad4ff0d20c3db5ac97b73c9b072db"
+  integrity sha512-J8bbNyKKXl5qYcR36TIO8W3mVGVHrmmxsd5PAItGkmyzwJvybiw2IVq5nqd0i4LSNSkB/sx9VHllbfFdr9k1JA==
 
 styled-jsx@5.1.6:
   version "5.1.6"

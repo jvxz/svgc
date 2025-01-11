@@ -1,4 +1,3 @@
-"use client";
 import { Checkbox } from "../ui/checkbox";
 import { Label } from "../ui/label";
 import { ItemsCodeBlock } from "./ItemsCodeBlock";

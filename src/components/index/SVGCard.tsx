@@ -1,7 +1,6 @@
 "use client";
 import { type Logo } from "@/actions/get-svgs";
 import { useItemsStore } from "@/lib/store/items";
-import { getImageUrl } from "@/lib/utils";
 import { ExternalLink, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,9 +14,6 @@ import {
 
 function SVGCard({ svg }: { svg: Logo }) {
   const { addItem, removeItem, items } = useItemsStore();
-
-  const imageUrl = getImageUrl(svg.files[0]!);
-  console.log("imageUrl", JSON.stringify(imageUrl, null, 2));
 
   return (
     <ContextMenu>

@@ -1,4 +1,6 @@
 'use server'
+import isSvg from "is-svg";
+import { optimize } from "svgo";
 import { z } from 'zod';
 
 const LogoSchema = z.array(
@@ -28,4 +30,31 @@ export async function getAllSvgs(fetchOptions?: RequestInit) {
   } catch (error) {
     console.error(error)
   }
+}
+
+export async function getSvgs(name: LogoList) {
+  const dataArray = await Promise.all(
+    name.map(async (item) => {
+      console.log(item.files[0])
+      const res = await fetch(
+        `https://zrevwgazrkablpkwsbfe.supabase.co/storage/v1/object/public/svgs/logos/${item.files[0]}`
+      );
+
+      const data = await res.text();
+      if (isSvg(data)) {
+        const optimized = optimize(data, {
+          multipass: true,
+        });
+        return {
+          name: item.name,
+          svg: optimized.data,
+        };
+      }
+      return {
+        name: item.name,
+        svg: data,
+      };
+    })
+  );
+  return dataArray;
 }
