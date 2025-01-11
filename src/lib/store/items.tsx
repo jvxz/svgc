@@ -12,7 +12,13 @@ interface ItemsStore {
 }
 export const useItemsStore = create<ItemsStore>((set) => ({
   items: [],
-  addItem: (item) => set((state) => ({ items: [...state.items, item] })),
+  addItem: (item) =>
+    set((state) => {
+      if (state.items.find((i) => i.name === item.name)) {
+        return state;
+      }
+      return { items: [...state.items, item] };
+    }),
   removeItem: (item) =>
     set((state) => ({
       items: state.items.filter((i) => i.name !== item.name),
