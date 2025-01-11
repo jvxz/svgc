@@ -1,4 +1,5 @@
 import "@/styles/globals.css";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { type Metadata } from "next";
 import {
   DM_Serif_Display,
@@ -36,7 +37,10 @@ export default function RootLayout({
       lang="en"
       className={`${radioCanadaBig.variable} ${dmSerifDisplay.variable} ${jetBrainsMono.variable}`}
     >
-      <body className="flex h-screen flex-col">{children}</body>
+      <body className="flex h-screen flex-col">
+        <ReactQueryDevtools initialIsOpen={false} />
+        {children}
+      </body>
     </html>
   );
 }

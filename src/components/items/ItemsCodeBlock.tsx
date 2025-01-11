@@ -8,13 +8,10 @@ import { ScrollArea } from "../ui/scroll-area";
 function ItemsCodeBlock() {
   const { items } = useItemsStore();
 
-  const { data, status } = useQuery({
+  const { data } = useQuery({
     queryKey: ["items", items],
     queryFn: () => getItemsCode(items),
   });
-
-  console.log("data", JSON.stringify(data, null, 2));
-  console.log("status", JSON.stringify(status, null, 2));
 
   return (
     <CodeBlock code={data ?? ""} language="typescript">

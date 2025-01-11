@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "next-themes";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { TooltipProvider } from "./ui/tooltip";
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

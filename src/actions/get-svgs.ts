@@ -1,6 +1,5 @@
-'use server'
+import { formatSvg } from "@/actions/format-svg";
 import isSvg from "is-svg";
-import { optimize } from "svgo";
 import { z } from 'zod';
 
 const LogoSchema = z.array(
@@ -18,42 +17,40 @@ export type Logo = LogoList[number]
 export async function getAllSvgs(fetchOptions?: RequestInit) {
   try {
     const res = await fetch(
-      "https://zrevwgazrkablpkwsbfe.supabase.co/storage/v1/object/public/svgs/logos.json",
-      {
-        ...fetchOptions,
-        cache: "force-cache",
-      },
+      `https://zrevwgazrkablpkwsbfe.supabase.co/storage/v1/object/public/svgs/logos.json`,
+      fetchOptions
     );
+
     const data: unknown = await res.json();
-    const parsedData = LogoSchema.parse(data);
-    return parsedData;
+
+    return LogoSchema.parse(data);
   } catch (error) {
-    console.error(error)
+    console.error('Error fetching SVGs:', error);
+    return undefined;
   }
 }
 
 export async function getSvgs(name: LogoList) {
   const dataArray = await Promise.all(
     name.map(async (item) => {
-      console.log(item.files[0])
       const res = await fetch(
         `https://zrevwgazrkablpkwsbfe.supabase.co/storage/v1/object/public/svgs/logos/${item.files[0]}`
       );
 
       const data = await res.text();
+      console.log('data', JSON.stringify(data, null, 2));
+
       if (isSvg(data)) {
-        const optimized = optimize(data, {
-          multipass: true,
-        });
+        const optimized = await formatSvg(data)
+
+        const name = item.name === ".NET" ? "DotNet" : item.name === "100tb" ? "OneHundredTB" : item.name === "500px" ? "FiveHundredPx" : item.name
+
         return {
-          name: item.name,
-          svg: optimized.data,
+          name,
+          svg: optimized,
         };
       }
-      return {
-        name: item.name,
-        svg: data,
-      };
+      throw new Error("Invalid SVG")
     })
   );
   return dataArray;
