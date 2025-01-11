@@ -1,4 +1,3 @@
-import { formatSvg } from "@/actions/format-svg";
 import isSvg from "is-svg";
 import { z } from 'zod';
 
@@ -41,13 +40,11 @@ export async function getSvgs(name: LogoList) {
       console.log('data', JSON.stringify(data, null, 2));
 
       if (isSvg(data)) {
-        const optimized = await formatSvg(data)
-
         const name = item.name === ".NET" ? "DotNet" : item.name === "100tb" ? "OneHundredTB" : item.name === "500px" ? "FiveHundredPx" : item.name
 
         return {
           name,
-          svg: optimized,
+          svg: data,
         };
       }
       throw new Error("Invalid SVG")
@@ -55,3 +52,4 @@ export async function getSvgs(name: LogoList) {
   );
   return dataArray;
 }
+

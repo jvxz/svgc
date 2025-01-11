@@ -31,12 +31,9 @@ function SVGDisplay() {
       <div className="flex flex-1 flex-wrap justify-evenly gap-6 p-6">
         {isLoading && <SVGDisplaySuspense />}
         {data ? (
-          data
-            .filter((svg) => svg.name.includes(searchInput))
-            .slice(0, svgsSection)
-            .map((svg) => {
-              return <SVGCard key={svg.name} svg={svg} />;
-            })
+          filteredSvgs?.slice(0, svgsSection).map((svg) => {
+            return <SVGCard key={svg.name} svg={svg} />;
+          })
         ) : (
           <div>No data</div>
         )}
