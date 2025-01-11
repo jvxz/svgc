@@ -1,20 +1,12 @@
-import { ScrollArea } from "../ui/scroll-area";
-
 function SVGDisplaySuspense() {
-  return (
-    <ScrollArea className="size-full">
-      <div className="flex flex-wrap justify-around gap-6 p-6">
-        {Array.from({ length: 10 }).map((_, index) => (
-          <SVGCardSkeleton key={index} />
-        ))}
-      </div>
-    </ScrollArea>
-  );
+  return Array.from({ length: 32 }).map((_, index) => (
+    <SVGCardSkeleton key={index} />
+  ));
 }
 
 function SVGCardSkeleton() {
   return (
-    <div className="motion-preset-fade flex h-60 w-64 animate-pulse flex-col rounded-xl bg-muted"></div>
+    <div className="motion-preset-fade flex size-52 animate-pulse flex-col rounded-xl bg-muted"></div>
   );
 }
 

@@ -5,13 +5,13 @@ import { getImageUrl } from "@/lib/utils";
 import { Copy, ExternalLink, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense } from "react";
 import { Button } from "../ui/button";
 
 function SVGCard({ svg }: { svg: Logo }) {
   const { addItem, removeItem, items } = useItemsStore();
 
   const imageUrl = getImageUrl(svg.files[0]!);
+  console.log("imageUrl", JSON.stringify(imageUrl, null, 2));
 
   return (
     <div className="relative flex size-52 flex-col rounded-xl border border-border text-center">
@@ -27,21 +27,16 @@ function SVGCard({ svg }: { svg: Logo }) {
         </Link>
       </div>
       <div className="flex flex-1 items-center justify-center">
-        <Suspense
-          fallback={
-            <div className="size-12 animate-pulse rounded-xl bg-muted" />
-          }
-        >
-          <Image
-            loading="lazy"
-            unoptimized
-            src={imageUrl}
-            alt={svg.name}
-            width={48}
-            height={48}
-            className="size-12"
-          />
-        </Suspense>
+        <Image
+          loading="lazy"
+          unoptimized
+          src={`https://zrevwgazrkablpkwsbfe.supabase.co/storage/v1/object/public/svgs/logos/${svg.files[0]}`}
+          // src={`https://zrevwgazrkablpkwsbfe.supabase.co/storage/v1/object/public/svgs/logos/500px.svg`}
+          alt={svg.name}
+          width={48}
+          height={48}
+          className="size-12"
+        />
       </div>
       <div className="flex flex-col gap-3 py-4">
         <div className="flex items-center justify-center gap-1">

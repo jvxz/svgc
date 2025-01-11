@@ -1,44 +1,64 @@
 "use client";
-import { type Logo } from "@/actions/get-svgs";
+import { getAllSvgs } from "@/actions/get-svgs";
 import { useInputStore } from "@/lib/store/input";
+import { useQuery } from "@tanstack/react-query";
 import { ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { ScrollArea } from "../ui/scroll-area";
 import { SVGCard } from "./SVGCard";
+import { SVGDisplaySuspense } from "./SVGDisplaySuspense";
 
-function SVGDisplay({ svgs }: { svgs: Logo[] }) {
+function SVGDisplay() {
   const { searchInput } = useInputStore();
   const [svgsSection, setSvgSection] = useState(32);
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["svgs"],
+    queryFn: getAllSvgs,
+  });
 
   useEffect(() => {
     setSvgSection(32);
   }, [searchInput]);
 
-  const filteredSvgs = svgs.filter((svg) => {
+  const filteredSvgs = data?.filter((svg) => {
     return svg.name.toLowerCase().includes(searchInput.toLowerCase());
   });
 
   return (
     <ScrollArea className="size-full">
       <div className="flex flex-1 flex-wrap justify-evenly gap-6 p-6">
-        {filteredSvgs.slice(0, svgsSection).map((svg) => {
+        {isLoading && <SVGDisplaySuspense />}
+        {filteredSvgs?.slice(0, svgsSection).map((svg) => {
           return <SVGCard key={svg.name} svg={svg} />;
         })}
       </div>
 
-      {svgsSection < filteredSvgs.length && (
-        <div className="flex justify-center pb-4">
-          <Button
-            variant="ghost"
-            onClick={() => setSvgSection(svgsSection + 32)}
-          >
-            Show more
-            <ChevronDown className="size-4" />
-          </Button>
-        </div>
+      {svgsSection < (filteredSvgs?.length ?? 0) && (
+        <ShowMoreButton
+          svgsSection={svgsSection}
+          setSvgSection={setSvgSection}
+        />
       )}
     </ScrollArea>
+  );
+}
+
+function ShowMoreButton({
+  svgsSection,
+  setSvgSection,
+}: {
+  svgsSection: number;
+  setSvgSection: (svgsSection: number) => void;
+}) {
+  return (
+    <div className="flex justify-center pb-4">
+      <Button variant="ghost" onClick={() => setSvgSection(svgsSection + 32)}>
+        Show more
+        <ChevronDown className="size-4" />
+      </Button>
+    </div>
   );
 }
 
