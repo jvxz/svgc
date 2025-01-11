@@ -40,6 +40,7 @@ export default function RootLayout({
     >
       <body className="flex h-screen flex-col">
         <Providers>
+          {/* <ReactQueryDevtools /> */}
           <Navbar />
           {children}
         </Providers>

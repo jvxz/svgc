@@ -13,7 +13,7 @@ function SVGDisplay() {
   const { searchInput } = useInputStore();
   const [svgsSection, setSvgSection] = useState(32);
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["svgs"],
     queryFn: getAllSvgs,
   });
@@ -30,9 +30,17 @@ function SVGDisplay() {
     <ScrollArea className="size-full">
       <div className="flex flex-1 flex-wrap justify-evenly gap-6 p-6">
         {isLoading && <SVGDisplaySuspense />}
-        {filteredSvgs?.slice(0, svgsSection).map((svg) => {
-          return <SVGCard key={svg.name} svg={svg} />;
-        })}
+        {data ? (
+          data
+            .filter((svg) => svg.name.includes(searchInput))
+            .slice(0, svgsSection)
+            .map((svg) => {
+              return <SVGCard key={svg.name} svg={svg} />;
+            })
+        ) : (
+          <div>No data</div>
+        )}
+        {error && <div>{error.message}</div>}
       </div>
 
       {svgsSection < (filteredSvgs?.length ?? 0) && (
