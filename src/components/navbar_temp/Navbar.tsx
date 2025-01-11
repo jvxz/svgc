@@ -11,6 +11,7 @@ function Navbar() {
       >
         svgc
       </Link>
+
       <div className="flex justify-end gap-2">
         <ItemsButton />
         <ThemeToggle />
