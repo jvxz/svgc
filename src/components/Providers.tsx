@@ -26,8 +26,8 @@ function Providers({ children }: { children: React.ReactNode }) {
           disableTransitionOnChange
         >
           <TooltipProvider>
-            <SpeedInsights />
             <TailwindIndicator />
+            <SpeedInsights />
             {children}
           </TooltipProvider>
         </ThemeProvider>
