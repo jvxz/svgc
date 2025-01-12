@@ -1,5 +1,6 @@
 "use client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "next-themes";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { TailwindIndicator } from "./tailwind-indicator";
@@ -25,6 +26,7 @@ function Providers({ children }: { children: React.ReactNode }) {
           disableTransitionOnChange
         >
           <TooltipProvider>
+            <SpeedInsights />
             <TailwindIndicator />
             {children}
           </TooltipProvider>
