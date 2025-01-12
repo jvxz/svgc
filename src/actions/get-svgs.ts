@@ -37,7 +37,6 @@ export async function getSvgs(name: LogoList) {
       );
 
       const data = await res.text();
-      console.log('data', JSON.stringify(data, null, 2));
 
       if (isSvg(data)) {
         const name = item.name === ".NET" ? "DotNet" : item.name === "100tb" ? "OneHundredTB" : item.name === "500px" ? "FiveHundredPx" : item.name

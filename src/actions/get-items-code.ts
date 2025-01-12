@@ -1,10 +1,6 @@
 "use server";
-import * as pluginTypescript from "prettier/parser-typescript";
-import * as pluginEstree from "prettier/plugins/estree";
-import * as prettier from "prettier/standalone";
-
 import { optimize } from "svgo";
-import { type FormatSvgMode } from "./format-svg";
+import { formatSvg, type FormatSvgMode } from "./format-svg";
 import { getSvgs, type Logo } from "./get-svgs";
 
 async function getItemsCode(items: Logo[], mode: FormatSvgMode) {
@@ -69,13 +65,7 @@ async function getItemsCode(items: Logo[], mode: FormatSvgMode) {
           {...props}`,
                 );
 
-        const formattedCode = await prettier.format(code, {
-            parser: "typescript",
-            plugins: [pluginTypescript, pluginEstree],
-            semi: true,
-            singleQuote: false,
-            tabWidth: 2,
-        });
+        const formattedCode = await formatSvg(code);
         return formattedCode;
     } catch (error) {
         console.error("Error getting items code", error);
