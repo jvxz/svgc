@@ -11,24 +11,19 @@ function SVGCard({ svg }: { svg: Logo }) {
   const { addItem, removeItem, items } = useItemsStore();
 
   return (
-    <Toggle
-      pressed={items.includes(svg)}
-      onPressedChange={() => {
-        if (items.includes(svg)) {
-          removeItem(svg);
-        } else {
-          addItem(svg);
-        }
-      }}
-      className={`relative flex size-52 cursor-pointer flex-col rounded-xl border border-border text-center transition-all hover:bg-muted/30`}
-    >
-      <div className="absolute inset-0 size-full -translate-y-2 scale-[0.35] rounded-full bg-foreground opacity-10 blur-3xl dark:opacity-[5%]" />
-      <div className="flex min-h-10 items-end justify-center">
-        <p className="mx-4 truncate" title={svg.name}>
-          {svg.name}
-        </p>
-      </div>
-      <div className="flex flex-1 items-center justify-center">
+    <div className="flex flex-col">
+      <Toggle
+        pressed={items.includes(svg)}
+        onPressedChange={() => {
+          if (items.includes(svg)) {
+            removeItem(svg);
+          } else {
+            addItem(svg);
+          }
+        }}
+        className="relative flex h-48 w-52 cursor-pointer flex-col rounded-xl rounded-b-none border border-border text-center transition-all hover:bg-muted/30"
+      >
+        <div className="absolute inset-0 size-full scale-[0.35] rounded-full bg-foreground opacity-10 blur-3xl dark:opacity-[5%]" />
         <Image
           loading="lazy"
           unoptimized
@@ -36,23 +31,16 @@ function SVGCard({ svg }: { svg: Logo }) {
           alt={svg.name + " logo"}
           width={48}
           height={48}
-          className="size-12"
+          className="size-20"
         />
-      </div>
-      <div className="flex flex-col gap-3 py-4">
-        <div className="flex items-center justify-center gap-1">
-          <Button asChild className="!size-8 rounded-full" variant="ghost">
-            <Link
-              aria-label="Visit brand website"
-              href={svg.url}
-              target="_blank"
-            >
-              <ExternalLink className="!size-5" />
-            </Link>
-          </Button>
-        </div>
-      </div>
-    </Toggle>
+      </Toggle>
+      <Button asChild className="rounded-t-none border-t-0" variant="outline">
+        <Link href={svg.url} target="_blank">
+          {svg.name}
+          <ExternalLink className="!size-3" />
+        </Link>
+      </Button>
+    </div>
   );
 }
 
