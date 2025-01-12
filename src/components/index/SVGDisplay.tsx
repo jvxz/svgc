@@ -1,18 +1,22 @@
 "use client";
-import { getAllSvgs } from "@/actions/get-svgs";
+import { getAllSvgs, type Logo } from "@/actions/get-svgs";
 import { useInputStore } from "@/lib/store/input";
+import { useItemsStore } from "@/lib/store/items";
+import { useSVGViewMode } from "@/lib/store/svg-view-mode";
 import { useQuery } from "@tanstack/react-query";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ExternalLink } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { ScrollArea } from "../ui/scroll-area";
-import { SVGCard } from "./SVGCard";
+import { Toggle } from "../ui/toggle";
 import { SVGDisplaySuspense } from "./SVGDisplaySuspense";
 
 function SVGDisplay() {
   const { searchInput } = useInputStore();
   const [svgsSection, setSvgSection] = useState(32);
-
+  const { viewMode } = useSVGViewMode();
   const { data, isLoading, error } = useQuery({
     queryKey: ["svgs"],
     queryFn: getAllSvgs,
@@ -22,21 +26,36 @@ function SVGDisplay() {
     setSvgSection(32);
   }, [searchInput]);
 
-  const filteredSvgs = data?.filter((svg) => {
-    return svg.name.toLowerCase().includes(searchInput.toLowerCase());
-  });
+  const filteredSvgs = data
+    // filter by search input
+    ?.filter((svg) => {
+      return svg.name.toLowerCase().includes(searchInput.toLowerCase());
+    })
+    // sort by name
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  // sections to display
+  const slicedSvgs = filteredSvgs?.slice(0, svgsSection);
 
   return (
     <ScrollArea className="size-full">
-      <div className="flex flex-1 flex-wrap justify-evenly gap-6 p-6">
+      <div
+        className={
+          viewMode === "grid"
+            ? "flex flex-1 flex-wrap justify-evenly gap-6 p-6"
+            : "grid grid-cols-2 gap-4 p-4"
+        }
+      >
         {isLoading && <SVGDisplaySuspense />}
-        {data ? (
-          filteredSvgs?.slice(0, svgsSection).map((svg) => {
-            return <SVGCard key={svg.name} svg={svg} />;
-          })
-        ) : (
-          <div>No data</div>
-        )}
+
+        {slicedSvgs?.map((svg) => {
+          return viewMode === "grid" ? (
+            <SVGCardGrid key={svg.name} svg={svg} />
+          ) : (
+            <SVGCardList key={svg.name} svg={svg} />
+          );
+        })}
+
         {error && <div>{error.message}</div>}
       </div>
 
@@ -47,6 +66,83 @@ function SVGDisplay() {
         />
       )}
     </ScrollArea>
+  );
+}
+
+function SVGCardGrid({ svg }: { svg: Logo }) {
+  const { items, addItem, removeItem } = useItemsStore();
+
+  return (
+    <div className="flex flex-col *:w-52">
+      <Toggle
+        pressed={items.includes(svg)}
+        onPressedChange={() => {
+          if (items.includes(svg)) {
+            removeItem(svg);
+          } else {
+            addItem(svg);
+          }
+        }}
+        className="relative flex h-48 cursor-pointer flex-col rounded-xl rounded-b-none border border-border text-center transition-all hover:bg-muted/30"
+      >
+        <div className="absolute inset-0 size-full scale-[0.4] rounded-full bg-foreground opacity-10 blur-3xl dark:opacity-[10%]" />
+        <Image
+          loading="lazy"
+          unoptimized
+          src={`https://zrevwgazrkablpkwsbfe.supabase.co/storage/v1/object/public/svgs/logos/${svg.files[0]}`}
+          alt={svg.name + " logo"}
+          width={48}
+          height={48}
+          className="size-20"
+        />
+      </Toggle>
+      <Button
+        asChild
+        title={svg.name}
+        className="rounded-t-none border-t-0"
+        variant="outline"
+      >
+        <Link href={svg.url} target="_blank">
+          <p className="truncate">{svg.name}</p>
+          <ExternalLink className="!size-3" />
+        </Link>
+      </Button>
+    </div>
+  );
+}
+
+function SVGCardList({ svg }: { svg: Logo }) {
+  const { items, addItem, removeItem } = useItemsStore();
+
+  return (
+    <div className="flex *:h-12">
+      <Toggle
+        variant="outline"
+        className="w-full justify-start gap-2 rounded-r-none"
+        pressed={items.includes(svg)}
+        onPressedChange={() => {
+          if (items.includes(svg)) {
+            removeItem(svg);
+          } else {
+            addItem(svg);
+          }
+        }}
+      >
+        <Image
+          loading="lazy"
+          unoptimized
+          src={`https://zrevwgazrkablpkwsbfe.supabase.co/storage/v1/object/public/svgs/logos/${svg.files[0]}`}
+          alt={svg.name + " logo"}
+          width={48}
+          height={48}
+          className="size-8"
+        />
+        {svg.name}
+      </Toggle>
+      <Button variant="outline" className="rounded-l-none border-l-0">
+        <ExternalLink />
+      </Button>
+    </div>
   );
 }
 
