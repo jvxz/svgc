@@ -4,15 +4,14 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import { Icon } from "../ui/logos";
 import { SidebarItems } from "./SidebarItems";
-import { SidebarSearch } from "./SidebarSearch";
+import { SidebarNav } from "./SidebarNav";
 
 function Sidebar() {
   const { items } = useItemsStore();
 
   return (
     <aside className="flex w-1/2 flex-col border-r border-border xl:w-1/3">
-      <SidebarSearch />
-
+      <SidebarNav />
       {items.length === 0 ? <SidebarNoItemsState /> : <SidebarItems />}
     </aside>
   );

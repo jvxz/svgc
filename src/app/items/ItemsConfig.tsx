@@ -1,6 +1,7 @@
 "use client";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { NAVBARS_HEIGHT } from "@/lib/config";
 import { useIconConfigStore } from "@/lib/store/icon-config";
 import { useItemsStore } from "@/lib/store/items";
 
@@ -9,7 +10,7 @@ function ItemsConfig() {
   const { mode, setMode } = useIconConfigStore();
 
   return (
-    <div className="min-h-16 border-b border-border">
+    <div className={`border-b border-border ${NAVBARS_HEIGHT}`}>
       <div className="flex h-full items-center p-4">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">

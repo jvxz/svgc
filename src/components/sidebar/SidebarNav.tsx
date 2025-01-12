@@ -1,16 +1,19 @@
 "use client";
 import { Input } from "@/components/ui/input";
+import { NAVBARS_HEIGHT } from "@/lib/config";
 import { useInputStore } from "@/lib/store/input";
 import { useItemsStore } from "@/lib/store/items";
 import { Trash } from "lucide-react";
 import { Button } from "../ui/button";
 
-export function SidebarSearch() {
+export function SidebarNav() {
   const { itemInput, setItemInput } = useInputStore();
   const { items, clearItems } = useItemsStore();
 
   return (
-    <div className="flex gap-2 border-b border-border p-4">
+    <div
+      className={`flex items-center gap-2 border-b border-border p-4 ${NAVBARS_HEIGHT}`}
+    >
       <Input
         value={itemInput}
         onChange={(e) => setItemInput(e.target.value)}

@@ -1,0 +1,1 @@
+export const NAVBARS_HEIGHT = "h-16"
