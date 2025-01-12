@@ -16,7 +16,7 @@ export type Logo = LogoList[number]
 export async function getAllSvgs(fetchOptions?: RequestInit) {
   try {
     const res = await fetch(
-      `https://zrevwgazrkablpkwsbfe.supabase.co/storage/v1/object/public/svgs/logos.json`,
+      `/icons.json`,
       fetchOptions
     );
 
