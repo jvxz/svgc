@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/select";
 import { useItemsStore } from "@/lib/store/items";
 import { ArrowLeft, ArrowRight, Trash } from "lucide-react";
+import Link from "next/link";
 import { Button } from "../ui/button";
 import {
   ContextMenu,
@@ -47,26 +48,47 @@ function ItemsNavbar() {
           Previous
         </Button>
 
-        <Select
-          value={items[selectedItemIndex]?.name}
-          defaultValue={items[0]?.name}
-          onValueChange={(value) => {
-            setSelectedItemIndex(
-              items.findIndex((item) => item.name === value),
-            );
-          }}
-        >
-          <SelectTrigger className="flex-1" disabled={items.length === 0}>
-            <SelectValue aria-label="Select item" placeholder="No items" />
-          </SelectTrigger>
-          <SelectContent>
-            {items.map((item) => (
-              <SelectItem key={item.name} value={item.name}>
-                {item.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <ContextMenu>
+          <ContextMenuTrigger disabled={items.length === 0} className="flex-1">
+            <Select
+              value={items[selectedItemIndex]?.name}
+              defaultValue={items[0]?.name}
+              onValueChange={(value) => {
+                setSelectedItemIndex(
+                  items.findIndex((item) => item.name === value),
+                );
+              }}
+            >
+              <SelectTrigger disabled={items.length === 0}>
+                <SelectValue aria-label="Select item" placeholder="No items" />
+              </SelectTrigger>
+              <SelectContent>
+                {items.map((item) => (
+                  <SelectItem key={item.name} value={item.name}>
+                    {item.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </ContextMenuTrigger>
+          <ContextMenuContent>
+            <ContextMenuItem asChild>
+              <Link href={items[selectedItemIndex]?.url ?? ""} target="_blank">
+                Visit website
+              </Link>
+            </ContextMenuItem>
+            <ContextMenuItem
+              onClick={() => {
+                if (items[selectedItemIndex]) {
+                  removeItem(items[selectedItemIndex]);
+                }
+              }}
+              className="text-destructive hover:bg-destructive/10 hover:text-destructive"
+            >
+              Delete
+            </ContextMenuItem>
+          </ContextMenuContent>
+        </ContextMenu>
 
         <Button
           disabled={items.length === 0}

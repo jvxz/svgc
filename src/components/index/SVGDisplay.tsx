@@ -139,8 +139,10 @@ function SVGCardList({ svg }: { svg: Logo }) {
         />
         {svg.name}
       </Toggle>
-      <Button variant="outline" className="rounded-l-none border-l-0">
-        <ExternalLink />
+      <Button asChild variant="outline" className="rounded-l-none border-l-0">
+        <Link href={svg.url} target="_blank">
+          <ExternalLink />
+        </Link>
       </Button>
     </div>
   );
