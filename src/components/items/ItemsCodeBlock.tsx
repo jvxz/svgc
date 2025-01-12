@@ -3,7 +3,7 @@ import { getItemsCode } from "@/actions/get-items-code";
 import { useItemsStore } from "@/lib/store/items";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
-import { Check, Copy } from "lucide-react";
+import { Check, Copy, FileX2 } from "lucide-react";
 import { useState } from "react";
 import { CodeBlock } from "react-code-block";
 import { Button } from "../ui/button";
@@ -19,7 +19,6 @@ function ItemsCodeBlock({ mode }: { mode: FormatSvgMode }) {
     queryKey: [items, mode],
     queryFn: () => getItemsCode(items, mode),
   });
-  console.log("mode", JSON.stringify(mode, null, 2));
 
   const handleCopy = async () => {
     try {
@@ -68,21 +67,29 @@ function ItemsCodeBlock({ mode }: { mode: FormatSvgMode }) {
           </div>
         </Button>
       </div>
-      {isLoading ? (
-        <CodeBlockSkeleton />
+
+      {items.length === 0 ? (
+        <div className="grid size-full place-items-center">
+          <FileX2 className="size-32 text-muted" />
+        </div>
       ) : (
-        <CodeBlock code={data ?? ""} language="typescript">
-          <ScrollArea className="relative size-full">
-            <div className="flex items-center gap-4">
-              <CodeBlock.Code className="p-4 text-sm leading-6 tracking-wide">
-                <CodeBlock.LineNumber className="pointer-events-none w-4 select-none text-xs text-muted-foreground/50" />
-                <CodeBlock.LineContent>
-                  <CodeBlock.Token />
-                </CodeBlock.LineContent>
-              </CodeBlock.Code>
-            </div>
-          </ScrollArea>
-        </CodeBlock>
+        <>
+          {isLoading && <CodeBlockSkeleton />}
+          {data && !isLoading && (
+            <CodeBlock code={data ?? ""} language="typescript">
+              <ScrollArea className="relative size-full">
+                <CodeBlock.Code className="p-4 text-sm leading-6 tracking-wide">
+                  <div className="flex items-center gap-4">
+                    <CodeBlock.LineNumber className="pointer-events-none w-4 select-none text-xs text-muted-foreground/50" />
+                    <CodeBlock.LineContent>
+                      <CodeBlock.Token />
+                    </CodeBlock.LineContent>
+                  </div>
+                </CodeBlock.Code>
+              </ScrollArea>
+            </CodeBlock>
+          )}
+        </>
       )}
     </div>
   );
@@ -90,12 +97,12 @@ function ItemsCodeBlock({ mode }: { mode: FormatSvgMode }) {
 
 function CodeBlockSkeleton() {
   return (
-    <div className="flex size-full flex-col gap-2 p-4 *:h-4">
-      {Array.from({ length: Math.random() * 10 + 1 }, (_, i) => (
+    <div className="flex size-full flex-col gap-4 p-4 *:h-4">
+      {Array.from({ length: Math.random() * 10 + 8 }, (_, i) => (
         <Skeleton
           key={i}
           className="w-full"
-          style={{ width: `${Math.random() * 10 + 24}%` }}
+          style={{ width: `${Math.random() * 10 + 24}rem` }}
         />
       ))}
     </div>
