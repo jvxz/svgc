@@ -9,11 +9,22 @@ import {
 import { useItemsStore } from "@/lib/store/items";
 import { ArrowLeft, ArrowRight, Trash } from "lucide-react";
 import { Button } from "../ui/button";
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from "../ui/context-menu";
 import { Separator } from "../ui/separator";
 
 function ItemsNavbar() {
-  const { items, setSelectedItemIndex, selectedItemIndex, removeItem } =
-    useItemsStore();
+  const {
+    items,
+    setSelectedItemIndex,
+    selectedItemIndex,
+    removeItem,
+    clearItems,
+  } = useItemsStore();
 
   return (
     <div className="flex min-h-16 items-center justify-center gap-4 border-b border-border px-4">
@@ -77,27 +88,39 @@ function ItemsNavbar() {
       </div>
       <Separator orientation="vertical" />
 
-      <div>
-        <Button
-          disabled={items.length === 0}
-          onClick={() => {
-            if (items[selectedItemIndex]) {
-              removeItem(items[selectedItemIndex]);
-            } else {
-              console.error("No item selected");
-            }
-          }}
-          variant="destructive"
-        >
-          <Trash
-            className="-ms-1 opacity-60"
-            size={16}
-            strokeWidth={2}
-            aria-hidden="true"
-          />
-          Delete
-        </Button>
-      </div>
+      <ContextMenu>
+        <ContextMenuTrigger asChild>
+          <Button
+            disabled={items.length === 0}
+            onClick={() => {
+              if (items[selectedItemIndex]) {
+                removeItem(items[selectedItemIndex]);
+              } else {
+                console.error("No item selected");
+              }
+            }}
+            variant="destructive"
+          >
+            <Trash
+              className="-ms-1 opacity-60"
+              size={16}
+              strokeWidth={2}
+              aria-hidden="true"
+            />
+            Delete
+          </Button>
+        </ContextMenuTrigger>
+        <ContextMenuContent>
+          <ContextMenuItem
+            onClick={() => {
+              clearItems();
+            }}
+            className="text-destructive hover:bg-destructive/10 hover:text-destructive"
+          >
+            Delete all
+          </ContextMenuItem>
+        </ContextMenuContent>
+      </ContextMenu>
     </div>
   );
 }

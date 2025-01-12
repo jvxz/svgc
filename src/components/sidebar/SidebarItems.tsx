@@ -20,6 +20,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import { ScrollArea } from "../ui/scroll-area";
 
 function SidebarItems() {
   const parent = useRef(null);
@@ -40,68 +41,70 @@ function SidebarItems() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex flex-1 flex-col gap-2 p-4" ref={parent}>
-        {filteredItems.map((item) => (
-          <ContextMenu key={item.name}>
-            <ContextMenuTrigger className="flex items-center">
-              <Button
-                asChild
-                className="flex w-full items-center justify-between rounded-r-none"
-                variant="outline"
-                onClick={() =>
-                  setSelectedItemIndex(filteredItems.indexOf(item))
-                }
-              >
-                <Link href={`/items`} className="flex items-center gap-2">
-                  <Image
-                    src={getImageUrl(item.files[0]!)}
-                    alt={item.name}
-                    width={20}
-                    height={20}
-                    className="size-4"
-                  />
-                  {item.name}
-                </Link>
-              </Button>
-              <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <Button
-                    size="icon"
-                    variant="outline"
-                    className="rounded-l-none border-l-0 px-4"
-                  >
-                    <Ellipsis className="size-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem>View</DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => {
-                      removeItem(item);
-                    }}
-                    className="text-destructive hover:bg-destructive/10 hover:text-destructive"
-                  >
-                    Delete
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </ContextMenuTrigger>
-            <ContextMenuContent>
-              <ContextMenuItem>View</ContextMenuItem>
-              <ContextMenuItem
-                onClick={() => {
-                  removeItem(item);
-                }}
-                className="text-destructive hover:bg-destructive/10 hover:text-destructive"
-              >
-                Delete
-              </ContextMenuItem>
-            </ContextMenuContent>
-          </ContextMenu>
-        ))}
+    <ScrollArea className="motion-preset-fade-sm h-full">
+      <div className="flex flex-col gap-2">
+        <div className="flex flex-1 flex-col gap-2 p-4" ref={parent}>
+          {filteredItems.map((item) => (
+            <ContextMenu key={item.name}>
+              <ContextMenuTrigger className="flex items-center">
+                <Button
+                  asChild
+                  className="flex w-full items-center justify-between rounded-r-none"
+                  variant="outline"
+                  onClick={() =>
+                    setSelectedItemIndex(filteredItems.indexOf(item))
+                  }
+                >
+                  <Link href={`/items`} className="flex items-center gap-2">
+                    <Image
+                      src={getImageUrl(item.files[0]!)}
+                      alt={item.name}
+                      width={20}
+                      height={20}
+                      className="size-4"
+                    />
+                    {item.name}
+                  </Link>
+                </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    <Button
+                      size="icon"
+                      variant="outline"
+                      className="rounded-l-none border-l-0 px-4"
+                    >
+                      <Ellipsis className="size-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem>View</DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => {
+                        removeItem(item);
+                      }}
+                      className="text-destructive hover:bg-destructive/10 hover:text-destructive"
+                    >
+                      Delete
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </ContextMenuTrigger>
+              <ContextMenuContent>
+                <ContextMenuItem>View</ContextMenuItem>
+                <ContextMenuItem
+                  onClick={() => {
+                    removeItem(item);
+                  }}
+                  className="text-destructive hover:bg-destructive/10 hover:text-destructive"
+                >
+                  Delete
+                </ContextMenuItem>
+              </ContextMenuContent>
+            </ContextMenu>
+          ))}
+        </div>
       </div>
-    </div>
+    </ScrollArea>
   );
 }
 

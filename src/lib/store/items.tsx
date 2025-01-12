@@ -4,6 +4,7 @@ import { create } from "zustand";
 interface ItemsStore {
   items: LogoList;
   removeItem: (item: Logo) => void;
+  clearItems: () => void;
   selectedItemIndex: number;
   addItem: (item: Logo) => void;
   setSelectedItemIndex: (index: number) => void;
@@ -23,4 +24,5 @@ export const useItemsStore = create<ItemsStore>((set) => ({
     })),
   selectedItemIndex: 0,
   setSelectedItemIndex: (index) => set({ selectedItemIndex: index }),
+  clearItems: () => set({ items: [] }),
 }));

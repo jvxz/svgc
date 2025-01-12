@@ -22,7 +22,8 @@ function ItemsCodeBlock({ mode }: { mode: FormatSvgMode }) {
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(data!);
+      if (!data) return;
+      await navigator.clipboard.writeText(data);
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     } catch (err) {
@@ -33,7 +34,7 @@ function ItemsCodeBlock({ mode }: { mode: FormatSvgMode }) {
   return (
     <div className="flex h-[calc(100%-4rem)] flex-col bg-black/90 dark:bg-black/50">
       <div className="flex h-12 items-center justify-between border-b border-border p-4">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 *:select-none">
           <Icon.React size={20} />
           <p className="font-mono text-sm text-muted-foreground">icons.tsx</p>
         </div>
@@ -42,7 +43,7 @@ function ItemsCodeBlock({ mode }: { mode: FormatSvgMode }) {
           size="icon"
           onClick={handleCopy}
           aria-label={copied ? "Copied" : "Copy to clipboard"}
-          disabled={!data}
+          disabled={!data || items.length === 0}
         >
           <div
             className={cn(
