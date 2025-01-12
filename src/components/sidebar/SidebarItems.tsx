@@ -5,6 +5,7 @@ import { getImageUrl } from "@/lib/utils";
 import autoAnimate from "@formkit/auto-animate";
 import { Ellipsis } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { Button } from "../ui/button";
 import {
@@ -22,7 +23,7 @@ import {
 
 function SidebarItems() {
   const parent = useRef(null);
-  const { items, removeItem } = useItemsStore();
+  const { items, removeItem, setSelectedItemIndex } = useItemsStore();
   const { itemInput } = useInputStore();
 
   const filteredItems = items.filter((item) =>
@@ -45,10 +46,14 @@ function SidebarItems() {
           <ContextMenu key={item.name}>
             <ContextMenuTrigger className="flex items-center">
               <Button
+                asChild
                 className="flex w-full items-center justify-between rounded-r-none"
                 variant="outline"
+                onClick={() =>
+                  setSelectedItemIndex(filteredItems.indexOf(item))
+                }
               >
-                <div className="flex items-center gap-2">
+                <Link href={`/items`} className="flex items-center gap-2">
                   <Image
                     src={getImageUrl(item.files[0]!)}
                     alt={item.name}
@@ -57,7 +62,7 @@ function SidebarItems() {
                     className="size-4"
                   />
                   {item.name}
-                </div>
+                </Link>
               </Button>
               <DropdownMenu>
                 <DropdownMenuTrigger>

@@ -3,7 +3,7 @@ import { useItemsStore } from "@/lib/store/items";
 import { getImageUrl } from "@/lib/utils";
 import Image from "next/image";
 import { GridBackground } from "../GridBackground";
-import { ItemsDropdown } from "./ItemsDropdown";
+import { ItemsNavbar } from "./ItemsNavbar";
 import { NoItemsState } from "./NoItemsState";
 
 function ItemsDisplay() {
@@ -11,8 +11,7 @@ function ItemsDisplay() {
 
   return (
     <div className="flex size-1/2 h-full flex-col border-r border-border">
-      <ItemsDropdown />
-
+      <ItemsNavbar />
       <GridBackground>
         {items.length > 0 && items[selectedItemIndex] ? (
           <Image
