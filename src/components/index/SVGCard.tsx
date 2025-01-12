@@ -12,7 +12,8 @@ function SVGCard({ svg }: { svg: Logo }) {
 
   return (
     <Toggle
-      onClick={() => {
+      pressed={items.includes(svg)}
+      onPressedChange={() => {
         if (items.includes(svg)) {
           removeItem(svg);
         } else {

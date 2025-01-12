@@ -94,9 +94,8 @@ function ItemsNavbar() {
             disabled={items.length === 0}
             onClick={() => {
               if (items[selectedItemIndex]) {
+                if (selectedItemIndex === items.length) setSelectedItemIndex(1);
                 removeItem(items[selectedItemIndex]);
-              } else {
-                console.error("No item selected");
               }
             }}
             variant="destructive"
