@@ -10,7 +10,7 @@ function Sidebar() {
   const { items } = useItemsStore();
 
   return (
-    <aside className="flex min-w-[20%] flex-col border-r border-border">
+    <aside className="flex w-1/2 flex-col border-r border-border xl:w-1/3">
       <SidebarSearch />
 
       {items.length === 0 ? <SidebarNoItemsState /> : <SidebarItems />}

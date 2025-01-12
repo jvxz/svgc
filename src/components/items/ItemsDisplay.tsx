@@ -10,7 +10,7 @@ function ItemsDisplay() {
   const { selectedItemIndex, items } = useItemsStore();
 
   return (
-    <div className="flex size-1/2 h-full flex-col border-r border-border">
+    <div className="flex h-full flex-1 flex-col border-r border-border">
       <ItemsNavbar />
       <GridBackground>
         {items.length > 0 && items[selectedItemIndex] ? (
@@ -19,7 +19,7 @@ function ItemsDisplay() {
             alt={items[selectedItemIndex]?.name ?? ""}
             width={256}
             height={256}
-            className="size-42 z-10"
+            className="size-42 z-10 text-foreground"
           />
         ) : (
           <NoItemsState />

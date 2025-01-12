@@ -33,7 +33,7 @@ function SVGCard({ svg }: { svg: Logo }) {
           loading="lazy"
           unoptimized
           src={`https://zrevwgazrkablpkwsbfe.supabase.co/storage/v1/object/public/svgs/logos/${svg.files[0]}`}
-          alt={svg.name}
+          alt={svg.name + " logo"}
           width={48}
           height={48}
           className="size-12"
@@ -61,7 +61,11 @@ function SVGCard({ svg }: { svg: Logo }) {
           </Button> */}
 
           <Button asChild className="!size-8 rounded-full" variant="ghost">
-            <Link href={svg.url} target="_blank">
+            <Link
+              aria-label="Visit brand website"
+              href={svg.url}
+              target="_blank"
+            >
               <ExternalLink className="!size-5" />
             </Link>
           </Button>

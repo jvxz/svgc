@@ -25,6 +25,7 @@ export function SidebarSearch() {
         size="icon"
         variant="destructive"
         className="aspect-square"
+        aria-label="Clear items"
       >
         <Trash size={16} strokeWidth={2} aria-hidden="true" />
       </Button>
