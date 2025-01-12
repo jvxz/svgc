@@ -1,19 +1,19 @@
-import { IndexBar } from "@/components/index/IndexBar";
 import { SVGDisplay } from "@/components/index/SVGDisplay";
 import { SVGDisplaySuspense } from "@/components/index/SVGDisplaySuspense";
+import { SVGNavbar } from "@/components/index/SVGNavbar";
 import { Sidebar } from "@/components/sidebar/Sidebar";
 import { Suspense } from "react";
 
 export default function Page() {
   return (
-    <>
-      <IndexBar />
-      <main className="flex flex-1 overflow-y-auto">
-        <Suspense fallback={<SVGDisplaySuspense />}>
-          <Sidebar />
+    <main className="flex flex-1 overflow-y-auto">
+      <Suspense fallback={<SVGDisplaySuspense />}>
+        <Sidebar />
+        <section className="flex flex-col">
+          <SVGNavbar />
           <SVGDisplay />
-        </Suspense>
-      </main>
-    </>
+        </section>
+      </Suspense>
+    </main>
   );
 }

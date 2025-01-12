@@ -33,7 +33,7 @@ function ItemsCodeBlock({ mode }: { mode: FormatSvgMode }) {
 
   return (
     <div className="flex h-[calc(100%-4rem)] flex-col bg-black/90 dark:bg-black/50">
-      <div className="flex h-12 items-center justify-between border-b border-border p-4">
+      <div className="flex h-12 items-center justify-between border-b border-border bg-background p-4">
         <div className="flex items-center gap-2 *:select-none">
           <Icon.React size={20} />
           <p className="font-mono text-sm text-muted-foreground">icons.tsx</p>
@@ -80,8 +80,8 @@ function ItemsCodeBlock({ mode }: { mode: FormatSvgMode }) {
             <CodeBlock code={data ?? ""} language="typescript">
               <ScrollArea className="relative size-full">
                 <CodeBlock.Code className="p-4 text-sm leading-6 tracking-wide">
-                  <div className="flex items-center gap-4">
-                    <CodeBlock.LineNumber className="pointer-events-none w-4 select-none text-xs text-muted-foreground/50" />
+                  <div className="flex items-center gap-2">
+                    <CodeBlock.LineNumber className="pointer-events-none w-4 select-none text-xs text-muted-foreground dark:text-muted-foreground/50" />
                     <CodeBlock.LineContent>
                       <CodeBlock.Token />
                     </CodeBlock.LineContent>

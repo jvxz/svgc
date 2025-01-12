@@ -3,12 +3,15 @@ import { useItemsStore } from "@/lib/store/items";
 import { Button } from "../ui/button";
 import { Icon } from "../ui/logos";
 import { SidebarItems } from "./SidebarItems";
+import { SidebarSearch } from "./SidebarSearch";
 
 function Sidebar() {
   const { items } = useItemsStore();
 
   return (
-    <aside className="min-w-[20%] border-r border-border">
+    <aside className="flex min-w-[20%] flex-col border-r border-border">
+      <SidebarSearch />
+
       {items.length === 0 ? <SidebarNoItemsState /> : <SidebarItems />}
     </aside>
   );
