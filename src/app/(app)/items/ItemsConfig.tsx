@@ -1,40 +1,47 @@
-import { type FormatSvgMode } from "@/actions/format-svg";
+"use client";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { useIconConfigStore } from "@/lib/store/icon-config";
+import { useItemsStore } from "@/lib/store/items";
 
-function ItemsConfig({
-  mode,
-  setMode,
-}: {
-  mode: FormatSvgMode;
-  setMode: (mode: FormatSvgMode) => void;
-}) {
+function ItemsConfig() {
+  const { items } = useItemsStore();
+  const { mode, setMode } = useIconConfigStore();
+
   return (
     <div className="min-h-16 border-b border-border">
-      <div className="flex items-center justify-between p-4">
-        <div className="flex items-center gap-2">
-          <Checkbox
-            checked={mode.addSizeProps}
-            onCheckedChange={(checked) => {
-              setMode({
-                ...mode,
-                addSizeProps: checked === "indeterminate" ? undefined : checked,
-              });
-            }}
-            id={`size-props`}
-          />
-          <Label htmlFor={`size-props`}>Add size props</Label>
-          <Checkbox
-            checked={mode.retainBrandColors}
-            onCheckedChange={(checked) => {
-              setMode({
-                ...mode,
-                retainBrandColors: checked === "indeterminate" ? true : checked,
-              });
-            }}
-            id={`brand-colors`}
-          />
-          <Label htmlFor={`brand-colors`}>Persist brand colors</Label>
+      <div className="flex h-full items-center p-4">
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <Checkbox
+              disabled={items.length === 0}
+              checked={mode.addSizeProps}
+              onCheckedChange={(checked) => {
+                setMode({
+                  ...mode,
+                  addSizeProps:
+                    checked === "indeterminate" ? undefined : checked,
+                });
+              }}
+              id={`size-props`}
+            />
+            <Label htmlFor={`size-props`}>Add size props</Label>
+          </div>
+          <div className="flex items-center gap-2">
+            <Checkbox
+              checked={mode.retainBrandColors}
+              disabled={items.length === 0}
+              onCheckedChange={(checked) => {
+                setMode({
+                  ...mode,
+                  retainBrandColors:
+                    checked === "indeterminate" ? true : checked,
+                });
+              }}
+              id={`brand-colors`}
+            />
+            <Label htmlFor={`brand-colors`}>Persist brand colors</Label>
+          </div>
         </div>
       </div>
     </div>

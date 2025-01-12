@@ -3,7 +3,7 @@ import { useInputStore } from "@/lib/store/input";
 import { useItemsStore } from "@/lib/store/items";
 import { getImageUrl } from "@/lib/utils";
 import autoAnimate from "@formkit/auto-animate";
-import { Ellipsis } from "lucide-react";
+import { Trash } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
@@ -14,12 +14,6 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
 } from "../ui/context-menu";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
 import { ScrollArea } from "../ui/scroll-area";
 
 function SidebarItems() {
@@ -66,31 +60,26 @@ function SidebarItems() {
                     {item.name}
                   </Link>
                 </Button>
-                <DropdownMenu>
-                  <DropdownMenuTrigger>
-                    <Button
-                      size="icon"
-                      variant="outline"
-                      className="rounded-l-none border-l-0 px-4"
-                    >
-                      <Ellipsis className="size-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuItem>View</DropdownMenuItem>
-                    <DropdownMenuItem
-                      onClick={() => {
-                        removeItem(item);
-                      }}
-                      className="text-destructive hover:bg-destructive/10 hover:text-destructive"
-                    >
-                      Delete
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                <Button
+                  size="icon"
+                  variant="outline"
+                  className="rounded-l-none border-l-0 px-4"
+                  onClick={() => {
+                    removeItem(item);
+                  }}
+                >
+                  <Trash className="size-4" />
+                </Button>
               </ContextMenuTrigger>
               <ContextMenuContent>
-                <ContextMenuItem>View</ContextMenuItem>
+                <ContextMenuItem
+                  asChild
+                  onClick={() => {
+                    setSelectedItemIndex(filteredItems.indexOf(item));
+                  }}
+                >
+                  <Link href={`/items`}>View</Link>
+                </ContextMenuItem>
                 <ContextMenuItem
                   onClick={() => {
                     removeItem(item);

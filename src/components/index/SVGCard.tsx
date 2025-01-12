@@ -1,16 +1,26 @@
 "use client";
 import { type Logo } from "@/actions/get-svgs";
 import { useItemsStore } from "@/lib/store/items";
-import { ExternalLink, Plus } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { Toggle } from "../ui/toggle";
 
 function SVGCard({ svg }: { svg: Logo }) {
   const { addItem, removeItem, items } = useItemsStore();
 
   return (
-    <div className="relative flex size-52 flex-col rounded-xl border border-border text-center">
+    <Toggle
+      onClick={() => {
+        if (items.includes(svg)) {
+          removeItem(svg);
+        } else {
+          addItem(svg);
+        }
+      }}
+      className={`relative flex size-52 cursor-pointer flex-col rounded-xl border border-border text-center transition-all hover:bg-muted/30`}
+    >
       <div className="absolute inset-0 size-full -translate-y-2 scale-[0.35] rounded-full bg-foreground opacity-10 blur-3xl dark:opacity-[5%]" />
       <div className="flex min-h-10 items-end justify-center">
         <p className="mx-4 truncate" title={svg.name}>
@@ -30,7 +40,7 @@ function SVGCard({ svg }: { svg: Logo }) {
       </div>
       <div className="flex flex-col gap-3 py-4">
         <div className="flex items-center justify-center gap-1">
-          <Button
+          {/* <Button
             className="!size-8 rounded-full"
             variant="ghost"
             onClick={() => {
@@ -47,7 +57,7 @@ function SVGCard({ svg }: { svg: Logo }) {
                 (items.includes(svg) ? "rotate-45 text-red-500" : "")
               }
             />
-          </Button>
+          </Button> */}
 
           <Button asChild className="!size-8 rounded-full" variant="ghost">
             <Link href={svg.url} target="_blank">
@@ -56,7 +66,7 @@ function SVGCard({ svg }: { svg: Logo }) {
           </Button>
         </div>
       </div>
-    </div>
+    </Toggle>
   );
 }
 

@@ -7,7 +7,8 @@ import { Button } from "../ui/button";
 
 export function SidebarSearch() {
   const { itemInput, setItemInput } = useInputStore();
-  const { clearItems } = useItemsStore();
+  const { items, clearItems } = useItemsStore();
+
   return (
     <div className="flex gap-2 border-b border-border p-4">
       <Input
@@ -15,10 +16,12 @@ export function SidebarSearch() {
         onChange={(e) => setItemInput(e.target.value)}
         className="pe-11"
         placeholder="Search items..."
+        disabled={items.length === 0}
         type="search"
       />
       <Button
         onClick={clearItems}
+        disabled={items.length === 0}
         size="icon"
         variant="destructive"
         className="aspect-square"
