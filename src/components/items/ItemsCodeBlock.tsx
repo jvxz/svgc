@@ -4,6 +4,7 @@ import { useIconConfigStore } from "@/lib/store/icon-config";
 import { useItemsStore } from "@/lib/store/items";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
+import { saveAs } from "file-saver";
 import { Check, Copy, Download, FileX2 } from "lucide-react";
 import { useState } from "react";
 import { CodeBlock } from "react-code-block";
@@ -36,11 +37,8 @@ function ItemsCodeBlock() {
   const handleDownload = () => {
     if (!data) return;
     const blob = new Blob([data], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "icons.tsx";
-    a.click();
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    saveAs(blob, "icons.tsx");
   };
 
   return (
