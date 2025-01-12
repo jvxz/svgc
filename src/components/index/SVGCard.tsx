@@ -41,25 +41,6 @@ function SVGCard({ svg }: { svg: Logo }) {
       </div>
       <div className="flex flex-col gap-3 py-4">
         <div className="flex items-center justify-center gap-1">
-          {/* <Button
-            className="!size-8 rounded-full"
-            variant="ghost"
-            onClick={() => {
-              if (items.includes(svg)) {
-                removeItem(svg);
-              } else {
-                addItem(svg);
-              }
-            }}
-          >
-            <Plus
-              className={
-                "!size-5 transition-all " +
-                (items.includes(svg) ? "rotate-45 text-red-500" : "")
-              }
-            />
-          </Button> */}
-
           <Button asChild className="!size-8 rounded-full" variant="ghost">
             <Link
               aria-label="Visit brand website"

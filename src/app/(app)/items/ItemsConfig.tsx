@@ -14,6 +14,7 @@ function ItemsConfig() {
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <Checkbox
+              aria-label="Add size props"
               disabled={items.length === 0}
               checked={mode.addSizeProps}
               onCheckedChange={(checked) => {
@@ -25,10 +26,13 @@ function ItemsConfig() {
               }}
               id={`size-props`}
             />
-            <Label htmlFor={`size-props`}>Add size props</Label>
+            <Label htmlFor={`size-props`} aria-label="Add size props">
+              Add size props
+            </Label>
           </div>
           <div className="flex items-center gap-2">
             <Checkbox
+              aria-label="Persist brand colors"
               checked={mode.retainBrandColors}
               disabled={items.length === 0}
               onCheckedChange={(checked) => {
@@ -40,7 +44,9 @@ function ItemsConfig() {
               }}
               id={`brand-colors`}
             />
-            <Label htmlFor={`brand-colors`}>Persist brand colors</Label>
+            <Label htmlFor={`brand-colors`} aria-label="Persist brand colors">
+              Persist brand colors
+            </Label>
           </div>
         </div>
       </div>

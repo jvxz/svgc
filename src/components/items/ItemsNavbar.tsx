@@ -57,7 +57,7 @@ function ItemsNavbar() {
           }}
         >
           <SelectTrigger className="flex-1" disabled={items.length === 0}>
-            <SelectValue placeholder="No items" />
+            <SelectValue aria-label="Select item" placeholder="No items" />
           </SelectTrigger>
           <SelectContent>
             {items.map((item) => (
