@@ -23,7 +23,7 @@ function SVGCard({ svg }: { svg: Logo }) {
         }}
         className="relative flex h-48 w-52 cursor-pointer flex-col rounded-xl rounded-b-none border border-border text-center transition-all hover:bg-muted/30"
       >
-        <div className="absolute inset-0 size-full scale-[0.35] rounded-full bg-foreground opacity-10 blur-3xl dark:opacity-[5%]" />
+        <div className="absolute inset-0 size-full scale-[0.4] rounded-full bg-foreground opacity-10 blur-3xl dark:opacity-[10%]" />
         <Image
           loading="lazy"
           unoptimized
