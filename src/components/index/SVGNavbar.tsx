@@ -2,6 +2,8 @@
 import { Input } from "@/components/ui/input";
 import { useInputStore } from "@/lib/store/input";
 import { useEffect, useRef } from "react";
+import { SVGSortBy } from "./SVGSortBy";
+import { SVGViewAs } from "./SVGViewAs";
 
 export function SVGNavbar() {
   const { searchInput, setSearchInput } = useInputStore();
@@ -22,8 +24,10 @@ export function SVGNavbar() {
   }, []);
 
   return (
-    <div className="flex-1 space-y-2 border-b border-border p-4">
-      <div className="relative">
+    <div className="flex flex-1 items-center gap-2 border-b border-border p-4">
+      <SVGViewAs />
+      <SVGSortBy />
+      <div className="relative flex-1">
         <Input
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
