@@ -9,7 +9,7 @@ export default function Page() {
     <main className="flex flex-1 overflow-y-auto">
       <Suspense fallback={<SVGDisplaySuspense />}>
         <Sidebar />
-        <section className="flex w-full flex-col">
+        <section className="relative flex w-full flex-col">
           <SVGNavbar />
           <SVGDisplay />
         </section>

@@ -1,5 +1,6 @@
 "use client";
 import { getAllSvgs, type Logo } from "@/actions/get-svgs";
+import { NAVBARS_HEIGHT_VALUE } from "@/lib/config";
 import { useInputStore } from "@/lib/store/input";
 import { useItemsStore } from "@/lib/store/items";
 import { useSVGViewMode } from "@/lib/store/svg-view-mode";
@@ -45,6 +46,9 @@ function SVGDisplay() {
             ? "flex flex-1 flex-wrap justify-evenly gap-6 p-6"
             : "grid grid-cols-2 gap-4 p-4"
         }
+        style={{
+          paddingTop: `${NAVBARS_HEIGHT_VALUE + 1}rem`,
+        }}
       >
         {isLoading && <SVGDisplaySuspense />}
 
