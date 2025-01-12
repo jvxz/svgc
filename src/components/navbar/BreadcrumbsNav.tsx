@@ -14,35 +14,38 @@ function BreadcrumbsNav() {
   const isHome = pathname[0] === "";
 
   return (
-    <Breadcrumb className="mx-auto">
-      <BreadcrumbList>
-        <BreadcrumbItem>
-          <BreadcrumbLink
-            className="aria-disabled:pointer-events-none"
-            aria-disabled={isHome}
-            href="/"
-          >
-            <Home size={16} strokeWidth={2} aria-hidden="true" />
-            <span className="sr-only">Home</span>
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        {!isHome && <BreadcrumbSeparator> / </BreadcrumbSeparator>}
-        {pathname.map((e, i) => {
-          return (
-            <div key={e}>
-              <BreadcrumbItem>
-                <BreadcrumbLink href={`/${e}`}>
-                  {e.charAt(0).toUpperCase() + e.slice(1)}
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              {i < pathname.length - 1 && (
-                <BreadcrumbSeparator> / </BreadcrumbSeparator>
-              )}
-            </div>
-          );
-        })}
-      </BreadcrumbList>
-    </Breadcrumb>
+    <>
+      <div aria-hidden className="block lg:hidden"></div>
+      <Breadcrumb className="mx-auto hidden lg:block">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink
+              className="aria-disabled:pointer-events-none"
+              aria-disabled={isHome}
+              href="/"
+            >
+              <Home size={16} strokeWidth={2} aria-hidden="true" />
+              <span className="sr-only">Home</span>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          {!isHome && <BreadcrumbSeparator> / </BreadcrumbSeparator>}
+          {pathname.map((e, i) => {
+            return (
+              <div key={e}>
+                <BreadcrumbItem>
+                  <BreadcrumbLink href={`/${e}`}>
+                    {e.charAt(0).toUpperCase() + e.slice(1)}
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                {i < pathname.length - 1 && (
+                  <BreadcrumbSeparator> / </BreadcrumbSeparator>
+                )}
+              </div>
+            );
+          })}
+        </BreadcrumbList>
+      </Breadcrumb>
+    </>
   );
 }
 

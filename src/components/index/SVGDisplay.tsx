@@ -44,7 +44,7 @@ function SVGDisplay() {
         className={
           viewMode === "grid"
             ? "flex flex-1 flex-wrap justify-evenly gap-6 p-6"
-            : "grid grid-cols-2 gap-4 p-4"
+            : "grid grid-cols-1 gap-4 p-4 lg:grid-cols-2"
         }
         style={{
           paddingTop: `${NAVBARS_HEIGHT_VALUE + 1}rem`,

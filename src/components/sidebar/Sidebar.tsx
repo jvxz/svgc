@@ -7,7 +7,7 @@ function Sidebar() {
   const { items } = useItemsStore();
 
   return (
-    <aside className="flex w-1/2 flex-col border-r border-border xl:w-1/3">
+    <aside className="md:1/2 flex w-2/3 flex-col border-r border-border lg:w-1/3">
       <SidebarNav />
       {items.length === 0 ? <SidebarNoItemsState /> : <SidebarItems />}
     </aside>

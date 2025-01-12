@@ -57,7 +57,7 @@ function SidebarItems() {
                       height={20}
                       className="size-4"
                     />
-                    {item.name}
+                    <p className="truncate">{item.name}</p>
                   </Link>
                 </Button>
                 <Button
