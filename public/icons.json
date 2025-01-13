@@ -5338,7 +5338,7 @@
         ]
     },
     {
-        "name": "Javascript (JS)",
+        "name": "JavaScript",
         "shortname": "javascript",
         "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
         "files": [
@@ -10449,7 +10449,7 @@
         ]
     },
     {
-        "name": "Typescript",
+        "name": "TypeScript",
         "shortname": "typescript",
         "url": "https://www.typescriptlang.org/",
         "files": [
