@@ -16,7 +16,7 @@ function SVGSortBy() {
   return (
     <div className="flex items-center">
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
+        <DropdownMenuTrigger disabled asChild>
           <Button className="rounded-r-none" variant="outline">
             Sort by
             <ChevronDown
@@ -40,6 +40,7 @@ function SVGSortBy() {
         </DropdownMenuContent>
       </DropdownMenu>
       <Button
+        disabled
         size="icon"
         className="rounded-l-none border-l-0"
         variant="outline"
