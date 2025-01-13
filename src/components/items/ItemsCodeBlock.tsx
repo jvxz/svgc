@@ -9,6 +9,13 @@ import { Check, Copy, Download, FileX2 } from "lucide-react";
 import { useState } from "react";
 import { CodeBlock } from "react-code-block";
 import { Button } from "../ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 import { Icon } from "../ui/logos";
 import { ScrollArea } from "../ui/scroll-area";
 import { Skeleton } from "../ui/skeleton";
@@ -87,6 +94,7 @@ function ItemsCodeBlock() {
               <Copy size={16} strokeWidth={2} aria-hidden="true" />
             </div>
           </Button>
+          <LanguageMenu />
         </div>
       </div>
 
@@ -128,6 +136,44 @@ function CodeBlockSkeleton() {
         />
       ))}
     </div>
+  );
+}
+
+function LanguageMenu() {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          size="icon"
+          variant="ghost"
+          className="shadow-none"
+          aria-label="Open edit menu"
+        >
+          <Icon.Typescript />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="pb-2">
+        <DropdownMenuLabel>Select language</DropdownMenuLabel>
+        <DropdownMenuItem
+          className="cursor-pointer py-1 focus:bg-transparent focus:underline"
+          asChild
+        >
+          <a href="#">
+            <Icon.Typescript size={16} aria-hidden="true" />
+            TypeScript
+          </a>
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          className="cursor-pointer py-1 focus:bg-transparent focus:underline"
+          asChild
+        >
+          <a href="#">
+            <Icon.Javascript size={16} aria-hidden="true" />
+            Javascript
+          </a>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 
