@@ -118,5 +118,6 @@ export default {
 			);
 		}),
 		require('tailwindcss-motion'),
+		require('@tailwindcss/typography'),
 	],
 } satisfies Config;

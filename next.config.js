@@ -9,6 +9,9 @@ const config = {
             {
                 hostname: "zrevwgazrkablpkwsbfe.supabase.co",
             },
+            {
+                hostname: "1iaax4on4v.ufs.sh",
+            },
         ],
     },
     experimental: {
