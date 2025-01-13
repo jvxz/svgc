@@ -27,6 +27,15 @@ function ItemsNavbar() {
     clearItems,
   } = useItemsStore();
 
+  function handleDelete() {
+    if (!items[selectedItemIndex]) return;
+    const index = items.findIndex(
+      (e) => e.name === items[selectedItemIndex]?.name,
+    );
+    removeItem(items[selectedItemIndex]);
+    if (index >= items.length - 1) setSelectedItemIndex(0);
+  }
+
   return (
     <div className="flex min-h-16 items-center justify-center gap-4 border-b border-border px-4">
       <div className="flex flex-1 items-center gap-2">
@@ -78,11 +87,7 @@ function ItemsNavbar() {
               </Link>
             </ContextMenuItem>
             <ContextMenuItem
-              onClick={() => {
-                if (items[selectedItemIndex]) {
-                  removeItem(items[selectedItemIndex]);
-                }
-              }}
+              onClick={handleDelete}
               className="text-destructive hover:bg-destructive/10 hover:text-destructive"
             >
               Delete
@@ -116,7 +121,8 @@ function ItemsNavbar() {
             disabled={items.length === 0}
             onClick={() => {
               if (items[selectedItemIndex]) {
-                if (selectedItemIndex === items.length) setSelectedItemIndex(1);
+                if (selectedItemIndex === items.length - 1)
+                  setSelectedItemIndex(0);
                 removeItem(items[selectedItemIndex]);
               }
             }}
