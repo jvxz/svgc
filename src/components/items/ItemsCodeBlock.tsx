@@ -142,7 +142,7 @@ function CodeBlockSkeleton() {
 function LanguageMenu() {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger disabled asChild>
         <Button
           size="icon"
           variant="ghost"
