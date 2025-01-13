@@ -43,7 +43,7 @@ function SidebarItems() {
               <ContextMenuTrigger className="flex items-center">
                 <Button
                   asChild
-                  className="flex w-full items-center justify-between rounded-r-none"
+                  className="flex w-full items-center justify-start rounded-r-none from-transparent from-20% to-muted-foreground/5 dark:bg-gradient-to-l"
                   variant="outline"
                   onClick={() =>
                     setSelectedItemIndex(filteredItems.indexOf(item))

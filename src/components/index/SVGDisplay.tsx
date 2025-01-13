@@ -43,7 +43,7 @@ function SVGDisplay() {
       <div
         className={
           viewMode === "grid"
-            ? "flex flex-1 flex-wrap justify-evenly gap-6 p-6"
+            ? "grid grid-cols-1 gap-6 p-6 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5"
             : "grid grid-cols-1 gap-4 p-4 lg:grid-cols-2"
         }
         style={{
@@ -77,7 +77,7 @@ function SVGCardGrid({ svg }: { svg: Logo }) {
   const { items, addItem, removeItem } = useItemsStore();
 
   return (
-    <div className="flex flex-col *:w-52">
+    <div className="flex flex-col *:w-full">
       <Toggle
         pressed={items.includes(svg)}
         onPressedChange={() => {
