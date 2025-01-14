@@ -8,7 +8,7 @@ function NoItemsState() {
     <div
       className={cn(
         "motion-preset-focus border-border bg-background text-center hover:border-border/80",
-        "w-[40%] rounded-xl border-2 border-dashed p-14",
+        "w-[60%] rounded-xl border-2 border-dashed p-14 xl:w-[50%]",
         "group z-10 transition duration-500 hover:bg-muted hover:duration-200",
       )}
     >
