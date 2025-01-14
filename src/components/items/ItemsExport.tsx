@@ -1,5 +1,5 @@
-import { ItemsConfig } from "@/app/items/ItemsConfig";
 import { ItemsCodeBlock } from "./ItemsCodeBlock";
+import { ItemsConfig } from "./ItemsConfig";
 
 function ItemsExport() {
   return (

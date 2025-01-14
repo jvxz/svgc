@@ -31,7 +31,7 @@ function BreadcrumbsNav() {
           {!isHome && <BreadcrumbSeparator> / </BreadcrumbSeparator>}
           {pathname.map((e, i) => {
             return (
-              <div key={e}>
+              <div key={e} className="flex items-center gap-2">
                 <BreadcrumbItem>
                   <BreadcrumbLink href={`/${e}`}>
                     {e.charAt(0).toUpperCase() + e.slice(1)}
