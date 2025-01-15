@@ -82,7 +82,8 @@ function AdvancedItemsList() {
                       if (e) setSelectedItemIndex(filteredItems.indexOf(item));
                       else setSelectedItemIndex(0);
                     }}
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation();
                       if (shiftHeld) {
                         const start = Math.min(
                           selectedItemIndex,
@@ -94,7 +95,7 @@ function AdvancedItemsList() {
                           filteredItems.indexOf(item),
                         );
 
-                        function x(start: number, end: number) {
+                        function getIndexes(start: number, end: number) {
                           const indexes = [];
                           for (let i = start; i <= end; i++) {
                             indexes.push(i);
@@ -102,7 +103,7 @@ function AdvancedItemsList() {
                           return indexes;
                         }
 
-                        setSelectedItemIndexes(x(start, end));
+                        setSelectedItemIndexes(getIndexes(start, end));
                       } else setSelectedItemIndexes(null);
                     }}
                   >

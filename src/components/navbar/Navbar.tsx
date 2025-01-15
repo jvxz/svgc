@@ -1,4 +1,4 @@
-import { Globe, Info, ShoppingBag } from "lucide-react";
+import { Globe, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 import { ThemeToggle } from "../ThemeToggle";
 import { Button } from "../ui/button";
@@ -8,7 +8,7 @@ import { BreadcrumbsNav } from "./BreadcrumbsNav";
 function Navbar() {
   return (
     <nav className="border-b border-border">
-      <div className="container mx-auto grid min-h-16 grid-cols-3 items-center px-8">
+      <div className="mx-auto grid min-h-16 grid-cols-3 items-center px-8">
         <div className="flex items-center gap-2">
           <Link
             href="/"
@@ -26,12 +26,6 @@ function Navbar() {
             <Link href="/items">
               <ShoppingBag className="opacity-60" aria-hidden="true" />
               Items
-            </Link>
-          </Button>
-          <Button asChild className="py-0 pe-0" variant="link">
-            <Link href="/about">
-              <Info className="opacity-60" aria-hidden="true" />
-              About
             </Link>
           </Button>
         </div>
