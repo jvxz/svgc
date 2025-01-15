@@ -18,7 +18,7 @@ function SidebarNoItemsState() {
   return (
     <div className="motion-preset-focus flex size-full flex-col items-center justify-center gap-2">
       <h1 className="font-mono text-4xl font-bold">svgc</h1>
-      <p>Select a brand to begin</p>
+      <p>Select a logo to begin</p>
     </div>
   );
 }
