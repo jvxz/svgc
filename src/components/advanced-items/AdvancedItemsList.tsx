@@ -1,10 +1,12 @@
 "use client";
+import { useKeyhold } from "@/lib/hooks/use-keyhold";
 import { useInputStore } from "@/lib/store/input";
 import { useItemsStore } from "@/lib/store/items";
 import { getImageUrl } from "@/lib/utils";
 import { Trash } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { Button } from "../ui/button";
 import {
   ContextMenu,
@@ -14,16 +16,24 @@ import {
 } from "../ui/context-menu";
 import { Input } from "../ui/input";
 import { ScrollArea } from "../ui/scroll-area";
+import { Toggle } from "../ui/toggle";
 
 function AdvancedItemsList() {
+  const [shiftHeld, setShiftHeld] = useState(false);
   const {
     items,
     setSelectedItemIndex,
     selectedItemIndex,
     removeItem,
     clearItems,
+    selectedItemIndexes,
+    setSelectedItemIndexes,
   } = useItemsStore();
   const { itemInput } = useInputStore();
+
+  useKeyhold("Shift", (e) => {
+    setShiftHeld(e);
+  });
 
   function handleDelete() {
     if (!items[selectedItemIndex]) return;
@@ -40,8 +50,18 @@ function AdvancedItemsList() {
 
   return (
     <div className="flex h-full w-1/3 flex-col border-r border-border">
-      <div className="border-b border-border p-4">
+      <div className="flex h-16 items-center gap-2 border-b border-border p-4">
         <Input placeholder="Search" />
+        <Button
+          variant="destructive"
+          size="icon"
+          className="aspect-square"
+          onClick={() => {
+            clearItems();
+          }}
+        >
+          <Trash className="size-4" />
+        </Button>
       </div>
       <ScrollArea className="h-full">
         <div className="flex h-full flex-col gap-2 p-4">
@@ -49,15 +69,44 @@ function AdvancedItemsList() {
             return (
               <ContextMenu key={item.name}>
                 <ContextMenuTrigger className="flex items-center">
-                  <Button
+                  <Toggle
                     asChild
-                    className="flex w-full items-center justify-start rounded-r-none from-transparent from-20% to-muted-foreground/5 dark:bg-gradient-to-l"
+                    className="flex w-full cursor-pointer items-center justify-start rounded-r-none from-transparent from-20% to-muted-foreground/5 dark:bg-gradient-to-l"
                     variant="outline"
-                    onClick={() =>
-                      setSelectedItemIndex(filteredItems.indexOf(item))
+                    pressed={
+                      selectedItemIndex === filteredItems.indexOf(item) ||
+                      selectedItemIndexes?.includes(filteredItems.indexOf(item))
                     }
+                    onPressedChange={(e) => {
+                      if (shiftHeld) return;
+                      if (e) setSelectedItemIndex(filteredItems.indexOf(item));
+                      else setSelectedItemIndex(0);
+                    }}
+                    onClick={() => {
+                      if (shiftHeld) {
+                        const start = Math.min(
+                          selectedItemIndex,
+                          filteredItems.indexOf(item),
+                        );
+
+                        const end = Math.max(
+                          selectedItemIndex,
+                          filteredItems.indexOf(item),
+                        );
+
+                        function x(start: number, end: number) {
+                          const indexes = [];
+                          for (let i = start; i <= end; i++) {
+                            indexes.push(i);
+                          }
+                          return indexes;
+                        }
+
+                        setSelectedItemIndexes(x(start, end));
+                      } else setSelectedItemIndexes(null);
+                    }}
                   >
-                    <div className="flex items-center gap-2">
+                    <div className="flex select-none items-center gap-2">
                       <Image
                         src={getImageUrl(item.files[0]!)}
                         alt={item.name}
@@ -67,7 +116,7 @@ function AdvancedItemsList() {
                       />
                       <p className="truncate">{item.name}</p>
                     </div>
-                  </Button>
+                  </Toggle>
                   <Button
                     size="icon"
                     variant="outline"
@@ -89,9 +138,7 @@ function AdvancedItemsList() {
                     <Link href={`/items`}>View</Link>
                   </ContextMenuItem>
                   <ContextMenuItem
-                    onClick={() => {
-                      removeItem(item);
-                    }}
+                    onClick={handleDelete}
                     className="text-destructive hover:bg-destructive/10 hover:text-destructive"
                   >
                     Delete
