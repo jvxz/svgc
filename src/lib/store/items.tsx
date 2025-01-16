@@ -29,7 +29,8 @@ export const useItemsStore = create<ItemsStore>()(
         })),
       selectedItemIndex: 0,
       setSelectedItemIndex: (index) => set({ selectedItemIndex: index }),
-      clearItems: () => set({ items: [] }),
+      clearItems: () =>
+        set({ items: [], selectedItemIndex: 0, selectedItemIndexes: null }),
       selectedItemIndexes: null,
       setSelectedItemIndexes: (indexes) =>
         set({ selectedItemIndexes: indexes }),

@@ -22,7 +22,13 @@ function AdvancedItemsSelection() {
             selectedItem?.name
           )}
         </Link>
-        <Button variant="destructive" className="aspect-square">
+        <Button
+          disabled={
+            selectedItemIndexes !== null || !selectedItem || items.length === 0
+          }
+          variant="destructive"
+          className="aspect-square"
+        >
           Delete
         </Button>
       </div>

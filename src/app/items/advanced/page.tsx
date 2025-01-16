@@ -7,7 +7,7 @@ import { NAVBARS_HEIGHT_VALUE } from "@/lib/config";
 export default function Page() {
   return (
     <main
-      className={`container mx-auto overflow-y-hidden h-[calc(100%-${NAVBARS_HEIGHT_VALUE}rem)] `}
+      className={`overflow-y-hidden h-[calc(100%-${NAVBARS_HEIGHT_VALUE}rem)] `}
     >
       <div className="flex h-full">
         <section className="flex h-full w-2/3 border-x border-border">

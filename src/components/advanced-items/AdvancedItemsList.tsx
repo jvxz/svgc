@@ -3,10 +3,10 @@ import { useKeyhold } from "@/lib/hooks/use-keyhold";
 import { useInputStore } from "@/lib/store/input";
 import { useItemsStore } from "@/lib/store/items";
 import { getImageUrl } from "@/lib/utils";
-import { Trash } from "lucide-react";
+import { Ellipsis, Trash } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import {
   ContextMenu,
@@ -14,12 +14,19 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
 } from "../ui/context-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 import { Input } from "../ui/input";
 import { ScrollArea } from "../ui/scroll-area";
 import { Toggle } from "../ui/toggle";
 
 function AdvancedItemsList() {
   const [shiftHeld, setShiftHeld] = useState(false);
+  const [multiSelect, setMultiSelect] = useState(true);
   const {
     items,
     setSelectedItemIndex,
@@ -48,20 +55,45 @@ function AdvancedItemsList() {
     item.name.toLowerCase().includes(itemInput.toLowerCase()),
   );
 
+  const isPressed = (index: number) => {
+    if (selectedItemIndexes !== null && multiSelect) {
+      return selectedItemIndexes?.includes(index);
+    }
+    return selectedItemIndex === index;
+  };
+
+  useEffect(() => {
+    if (multiSelect) return;
+    setSelectedItemIndexes(null);
+  }, [items, multiSelect, setSelectedItemIndexes]);
+
   return (
     <div className="flex h-full w-1/3 flex-col border-r border-border">
       <div className="flex h-16 items-center gap-2 border-b border-border p-4">
         <Input placeholder="Search" />
-        <Button
-          variant="destructive"
-          size="icon"
-          className="aspect-square"
-          onClick={() => {
-            clearItems();
-          }}
-        >
-          <Trash className="size-4" />
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              size="icon"
+              variant="outline"
+              className="aspect-square shadow-none"
+              aria-label="Open edit menu"
+            >
+              <Ellipsis size={16} strokeWidth={2} aria-hidden="true" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem onClick={() => setMultiSelect(!multiSelect)}>
+              {multiSelect ? "Disable" : "Enable"} multi-select
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="text-destructive hover:bg-destructive/10 hover:text-destructive"
+              onClick={clearItems}
+            >
+              Clear list
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
       <ScrollArea className="h-full">
         <div className="flex h-full flex-col gap-2 p-4">
@@ -73,18 +105,10 @@ function AdvancedItemsList() {
                     asChild
                     className="flex w-full cursor-pointer items-center justify-start rounded-r-none from-transparent from-20% to-muted-foreground/5 dark:bg-gradient-to-l"
                     variant="outline"
-                    pressed={
-                      selectedItemIndex === filteredItems.indexOf(item) ||
-                      selectedItemIndexes?.includes(filteredItems.indexOf(item))
-                    }
-                    onPressedChange={(e) => {
-                      if (shiftHeld) return;
-                      if (e) setSelectedItemIndex(filteredItems.indexOf(item));
-                      else setSelectedItemIndex(0);
-                    }}
+                    pressed={isPressed(filteredItems.indexOf(item))}
                     onClick={(e) => {
                       e.stopPropagation();
-                      if (shiftHeld) {
+                      if (shiftHeld && multiSelect) {
                         const start = Math.min(
                           selectedItemIndex,
                           filteredItems.indexOf(item),
@@ -104,7 +128,10 @@ function AdvancedItemsList() {
                         }
 
                         setSelectedItemIndexes(getIndexes(start, end));
-                      } else setSelectedItemIndexes(null);
+                      } else {
+                        setSelectedItemIndexes(null);
+                        setSelectedItemIndex(filteredItems.indexOf(item));
+                      }
                     }}
                   >
                     <div className="flex select-none items-center gap-2">
