@@ -6,7 +6,7 @@ function SVGDisplaySuspense() {
 
 function SVGCardSkeleton() {
   return (
-    <div className="motion-preset-fade flex size-52 animate-pulse flex-col rounded-xl bg-muted"></div>
+    <div className="motion-preset-fade flex h-56 w-64 animate-pulse flex-col rounded-xl bg-muted"></div>
   );
 }
 
