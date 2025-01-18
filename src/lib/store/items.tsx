@@ -7,10 +7,7 @@ interface ItemsStore {
   removeItem: (item: Logo) => void;
   clearItems: () => void;
   addItem: (item: Logo) => void;
-  selectedItemIndex: number;
-  setSelectedItemIndex: (index: number) => void;
-  selectedItemIndexes: number[] | null;
-  setSelectedItemIndexes: (indexes: number[] | null) => void;
+  setItems: (items: LogoList) => void;
 }
 export const useItemsStore = create<ItemsStore>()(
   persist(
@@ -27,13 +24,8 @@ export const useItemsStore = create<ItemsStore>()(
         set((state) => ({
           items: state.items.filter((i) => i.name !== item.name),
         })),
-      selectedItemIndex: 0,
-      setSelectedItemIndex: (index) => set({ selectedItemIndex: index }),
-      clearItems: () =>
-        set({ items: [], selectedItemIndex: 0, selectedItemIndexes: null }),
-      selectedItemIndexes: null,
-      setSelectedItemIndexes: (indexes) =>
-        set({ selectedItemIndexes: indexes }),
+      clearItems: () => set({ items: [] }),
+      setItems: (items) => set({ items }),
     }),
     {
       name: "items",
