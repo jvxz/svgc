@@ -1,32 +1,27 @@
 "use client";
-import { getAllSvgs, type Item } from "@/actions/get-svgs";
+import { useSvgs } from "@/hooks/use-svgs";
 import { NAVBARS_HEIGHT_VALUE } from "@/lib/config";
 import { useInputStore } from "@/lib/store/input";
-import { useSVGViewMode } from "@/lib/store/svg-view-mode";
-import { useQuery } from "@tanstack/react-query";
-import { ChevronDown, ExternalLink } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+import { useSVGViewModeStore } from "@/lib/store/svg-view-mode";
+import { ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { ScrollArea } from "../ui/scroll-area";
-import { Toggle } from "../ui/toggle";
 import { SVGDisplaySuspense } from "./SVGDisplaySuspense";
+import { SVGGridCard } from "./SVGGridCard";
+import { SVGListCard } from "./SVGListCard";
 
 function SVGDisplay() {
-  const { searchInput } = useInputStore();
   const [svgsSection, setSvgSection] = useState(32);
-  const { viewMode } = useSVGViewMode();
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["svgs"],
-    queryFn: getAllSvgs,
-  });
+  const { searchInput } = useInputStore();
+  const { viewMode } = useSVGViewModeStore();
+  const { svgs, isLoading, error } = useSvgs();
 
   useEffect(() => {
     setSvgSection(32);
   }, [searchInput]);
 
-  const filteredSvgs = data
+  const filteredSvgs = svgs
     // filter by search input
     ?.filter((svg) => {
       return svg.name.toLowerCase().includes(searchInput.toLowerCase());
@@ -53,9 +48,9 @@ function SVGDisplay() {
 
         {slicedSvgs?.map((svg) => {
           return viewMode === "grid" ? (
-            <SVGCardGrid key={svg.name} svg={svg} />
+            <SVGGridCard key={svg.name} svg={svg} />
           ) : (
-            <SVGCardList key={svg.name} svg={svg} />
+            <SVGListCard key={svg.name} svg={svg} />
           );
         })}
 
@@ -69,65 +64,6 @@ function SVGDisplay() {
         />
       )}
     </ScrollArea>
-  );
-}
-
-function SVGCardGrid({ svg }: { svg: Item }) {
-  return (
-    <div className="flex flex-col *:w-full">
-      <Toggle className="relative flex h-48 cursor-pointer flex-col rounded-xl rounded-b-none border border-border text-center transition-all hover:bg-muted/30">
-        <div className="absolute inset-0 size-full scale-[0.4] rounded-full bg-foreground opacity-10 blur-3xl dark:opacity-[10%]" />
-        <Image
-          loading="lazy"
-          unoptimized
-          src={`https://zrevwgazrkablpkwsbfe.supabase.co/storage/v1/object/public/svgs/logos/${"logo.svg"}`}
-          alt="logo"
-          // alt={svg.name + " logo"}
-          width={48}
-          height={48}
-          className="size-20"
-        />
-      </Toggle>
-      <Button
-        asChild
-        title="logo"
-        className="rounded-t-none border-t-0"
-        variant="outline"
-      >
-        <Link href="/" target="_blank">
-          <p className="truncate">logo</p>
-          <ExternalLink className="!size-3" />
-        </Link>
-      </Button>
-    </div>
-  );
-}
-
-function SVGCardList({ svg }: { svg: Item }) {
-  return (
-    <div className="flex *:h-12">
-      <Toggle
-        variant="outline"
-        className="w-full justify-start gap-2 rounded-r-none"
-      >
-        <Image
-          loading="lazy"
-          unoptimized
-          src={`https://zrevwgazrkablpkwsbfe.supabase.co/storage/v1/object/public/svgs/logos/${"logo.svg"}`}
-          alt="logo"
-          // alt={svg.name + " logo"}
-          width={48}
-          height={48}
-          className="size-8"
-        />
-        logo
-      </Toggle>
-      <Button asChild variant="outline" className="rounded-l-none border-l-0">
-        <Link href="/" target="_blank">
-          <ExternalLink />
-        </Link>
-      </Button>
-    </div>
   );
 }
 

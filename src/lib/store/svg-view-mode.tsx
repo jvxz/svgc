@@ -1,12 +1,12 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-interface SVGViewMode {
+interface SVGViewModeStore {
   viewMode: string;
   setViewMode: (val: string) => void;
 }
 
-export const useSVGViewMode = create<SVGViewMode>()(
+export const useSVGViewModeStore = create<SVGViewModeStore>()(
   persist(
     (set) => ({
       viewMode: "grid",

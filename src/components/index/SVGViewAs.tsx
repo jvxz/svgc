@@ -1,10 +1,10 @@
 "use client";
-import { useSVGViewMode } from "@/lib/store/svg-view-mode";
+import { useSVGViewModeStore } from "@/lib/store/svg-view-mode";
 import { Grid3x3, LayoutList } from "lucide-react";
 import { Button } from "../ui/button";
 
 function SVGViewAs() {
-  const { viewMode, setViewMode } = useSVGViewMode();
+  const { viewMode, setViewMode } = useSVGViewModeStore();
   return (
     <Button
       variant="outline"
