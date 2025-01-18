@@ -1,10 +1,10 @@
 "use client";
-import { getAllSvgs, type Logo } from "@/actions/get-svgs";
+import { type Logo } from "@/actions/get-svgs";
 import { NAVBARS_HEIGHT_VALUE } from "@/lib/config";
+import { useGetSvgs } from "@/lib/hooks/use-get-svgs";
 import { useInputStore } from "@/lib/store/input";
 import { useItemsStore } from "@/lib/store/items";
 import { useSVGViewMode } from "@/lib/store/svg-view-mode";
-import { useQuery } from "@tanstack/react-query";
 import { ChevronDown, ExternalLink } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,10 +18,7 @@ function SVGDisplay() {
   const { searchInput } = useInputStore();
   const [svgsSection, setSvgSection] = useState(32);
   const { viewMode } = useSVGViewMode();
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["svgs"],
-    queryFn: getAllSvgs,
-  });
+  const { data, isLoading, error } = useGetSvgs();
 
   useEffect(() => {
     setSvgSection(32);
