@@ -10,8 +10,8 @@ const LogoSchema = z.array(
   })
 )
 
-export type LogoList = z.infer<typeof LogoSchema>
-export type Logo = LogoList[number]
+export type ItemList = z.infer<typeof LogoSchema>
+export type Item = ItemList[number]
 
 export async function getAllSvgs(fetchOptions?: RequestInit) {
   try {
@@ -29,7 +29,7 @@ export async function getAllSvgs(fetchOptions?: RequestInit) {
   }
 }
 
-export async function getSvgs(name: LogoList) {
+export async function getSvgs(name: ItemList) {
   const dataArray = await Promise.all(
     name.map(async (item) => {
       const res = await fetch(
