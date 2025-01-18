@@ -2,7 +2,6 @@
 import { getAllSvgs, type Logo } from "@/actions/get-svgs";
 import { NAVBARS_HEIGHT_VALUE } from "@/lib/config";
 import { useInputStore } from "@/lib/store/input";
-import { useItemsStore } from "@/lib/store/items";
 import { useSVGViewMode } from "@/lib/store/svg-view-mode";
 import { useQuery } from "@tanstack/react-query";
 import { ChevronDown, ExternalLink } from "lucide-react";
@@ -74,27 +73,16 @@ function SVGDisplay() {
 }
 
 function SVGCardGrid({ svg }: { svg: Logo }) {
-  const { items, addItem, removeItem } = useItemsStore();
-
   return (
     <div className="flex flex-col *:w-full">
-      <Toggle
-        pressed={items.includes(svg)}
-        onPressedChange={() => {
-          if (items.includes(svg)) {
-            removeItem(svg);
-          } else {
-            addItem(svg);
-          }
-        }}
-        className="relative flex h-48 cursor-pointer flex-col rounded-xl rounded-b-none border border-border text-center transition-all hover:bg-muted/30"
-      >
+      <Toggle className="relative flex h-48 cursor-pointer flex-col rounded-xl rounded-b-none border border-border text-center transition-all hover:bg-muted/30">
         <div className="absolute inset-0 size-full scale-[0.4] rounded-full bg-foreground opacity-10 blur-3xl dark:opacity-[10%]" />
         <Image
           loading="lazy"
           unoptimized
-          src={`https://zrevwgazrkablpkwsbfe.supabase.co/storage/v1/object/public/svgs/logos/${svg.files[0]}`}
-          alt={svg.name + " logo"}
+          src={`https://zrevwgazrkablpkwsbfe.supabase.co/storage/v1/object/public/svgs/logos/${"logo.svg"}`}
+          alt="logo"
+          // alt={svg.name + " logo"}
           width={48}
           height={48}
           className="size-20"
@@ -102,12 +90,12 @@ function SVGCardGrid({ svg }: { svg: Logo }) {
       </Toggle>
       <Button
         asChild
-        title={svg.name}
+        title="logo"
         className="rounded-t-none border-t-0"
         variant="outline"
       >
-        <Link href={svg.url} target="_blank">
-          <p className="truncate">{svg.name}</p>
+        <Link href="/" target="_blank">
+          <p className="truncate">logo</p>
           <ExternalLink className="!size-3" />
         </Link>
       </Button>
@@ -116,35 +104,26 @@ function SVGCardGrid({ svg }: { svg: Logo }) {
 }
 
 function SVGCardList({ svg }: { svg: Logo }) {
-  const { items, addItem, removeItem } = useItemsStore();
-
   return (
     <div className="flex *:h-12">
       <Toggle
         variant="outline"
         className="w-full justify-start gap-2 rounded-r-none"
-        pressed={items.includes(svg)}
-        onPressedChange={() => {
-          if (items.includes(svg)) {
-            removeItem(svg);
-          } else {
-            addItem(svg);
-          }
-        }}
       >
         <Image
           loading="lazy"
           unoptimized
-          src={`https://zrevwgazrkablpkwsbfe.supabase.co/storage/v1/object/public/svgs/logos/${svg.files[0]}`}
-          alt={svg.name + " logo"}
+          src={`https://zrevwgazrkablpkwsbfe.supabase.co/storage/v1/object/public/svgs/logos/${"logo.svg"}`}
+          alt="logo"
+          // alt={svg.name + " logo"}
           width={48}
           height={48}
           className="size-8"
         />
-        {svg.name}
+        logo
       </Toggle>
       <Button asChild variant="outline" className="rounded-l-none border-l-0">
-        <Link href={svg.url} target="_blank">
+        <Link href="/" target="_blank">
           <ExternalLink />
         </Link>
       </Button>

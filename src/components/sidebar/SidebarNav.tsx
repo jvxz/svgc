@@ -2,13 +2,11 @@
 import { Input } from "@/components/ui/input";
 import { NAVBARS_HEIGHT } from "@/lib/config";
 import { useInputStore } from "@/lib/store/input";
-import { useItemsStore } from "@/lib/store/items";
 import { Trash } from "lucide-react";
 import { Button } from "../ui/button";
 
 export function SidebarNav() {
   const { itemInput, setItemInput } = useInputStore();
-  const { items, clearItems } = useItemsStore();
 
   return (
     <div
@@ -19,12 +17,9 @@ export function SidebarNav() {
         onChange={(e) => setItemInput(e.target.value)}
         className="pe-11"
         placeholder="Search items..."
-        disabled={items.length === 0}
         type="search"
       />
       <Button
-        onClick={clearItems}
-        disabled={items.length === 0}
         size="icon"
         variant="destructive"
         className="aspect-square"
