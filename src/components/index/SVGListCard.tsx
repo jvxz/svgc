@@ -1,5 +1,6 @@
 import { type Item } from "@/actions/get-svgs";
-import { getImageUrl } from "@/lib/utils";
+import { useItemsStore } from "@/lib/store/items";
+import { getImageUrl, handleItemToggle } from "@/lib/utils";
 import { ExternalLink } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,6 +12,9 @@ type SVGListCardProps = {
 };
 
 function SVGListCard({ svg }: SVGListCardProps) {
+  const { items } = useItemsStore();
+
+  const isPressed = items.some((item) => item.data.name === svg.name);
   const imageUrl = svg.files[0] ? getImageUrl(svg.files[0]) : "";
 
   return (
@@ -18,6 +22,8 @@ function SVGListCard({ svg }: SVGListCardProps) {
       <Toggle
         variant="outline"
         className="w-full justify-start gap-2 rounded-r-none"
+        onPressedChange={(isPressed) => handleItemToggle(isPressed, svg)}
+        pressed={isPressed}
       >
         <Image
           loading="lazy"
