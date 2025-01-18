@@ -43,6 +43,12 @@ export default {
 					...fontFamily.mono,
 				],
 			},
+			height: {
+				"navbar": "var(--navbar)",
+			},
+			padding: {
+				"navbar": "var(--navbar)",
+			},
 			borderRadius: {
 				lg: "var(--radius)",
 				md: "calc(var(--radius) - 2px)",

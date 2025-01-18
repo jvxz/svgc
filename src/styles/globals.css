@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer base {
   :root {
     --background: 185 0% 99%;
@@ -28,7 +29,9 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.75rem;
+    --navbar: 4rem;
   }
+
   .dark {
     --background: 185 0% 6%;
     --foreground: 185 0% 90%;
@@ -57,10 +60,12 @@
     --radius: 0.75rem;
   }
 }
+
 @layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }

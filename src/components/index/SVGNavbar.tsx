@@ -1,6 +1,5 @@
 "use client";
 import { Input } from "@/components/ui/input";
-import { NAVBARS_HEIGHT } from "@/lib/config";
 import { useInputStore } from "@/lib/store/input";
 import { useEffect, useRef } from "react";
 import { SVGSortBy } from "./SVGSortBy";
@@ -8,9 +7,7 @@ import { SVGViewAs } from "./SVGViewAs";
 
 export function SVGNavbar() {
   return (
-    <div
-      className={`absolute top-0 z-10 flex w-full flex-1 items-center gap-2 border-b border-border bg-background/70 backdrop-blur-lg ${NAVBARS_HEIGHT} p-4`}
-    >
+    <div className="h-navbar absolute top-0 z-10 flex w-full flex-1 items-center gap-2 border-b border-border bg-background/70 p-4 backdrop-blur-lg">
       <SVGViewAs />
       <SVGSortBy />
       <SVGSearchInput />

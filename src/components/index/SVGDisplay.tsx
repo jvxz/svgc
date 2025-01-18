@@ -1,6 +1,5 @@
 "use client";
 import { useSvgs } from "@/hooks/use-svgs";
-import { NAVBARS_HEIGHT_VALUE } from "@/lib/config";
 import { useInputStore } from "@/lib/store/input";
 import { useSVGViewModeStore } from "@/lib/store/svg-view-mode";
 import { ChevronDown } from "lucide-react";
@@ -37,11 +36,11 @@ function SVGDisplay() {
       <div
         className={
           viewMode === "grid"
-            ? "grid grid-cols-1 gap-6 p-6 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5"
-            : "grid grid-cols-1 gap-4 p-4 lg:grid-cols-2"
+            ? "pt-navbar grid grid-cols-1 gap-6 p-6 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5"
+            : "pt-navbar grid grid-cols-1 gap-4 p-4 lg:grid-cols-2"
         }
         style={{
-          paddingTop: `${NAVBARS_HEIGHT_VALUE + 1}rem`,
+          paddingTop: "calc(var(--navbar) + 1rem)",
         }}
       >
         {isLoading && <SVGDisplaySuspense />}
