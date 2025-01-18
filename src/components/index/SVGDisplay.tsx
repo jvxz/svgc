@@ -1,5 +1,5 @@
 "use client";
-import { getAllSvgs, type Logo } from "@/actions/get-svgs";
+import { getAllSvgs, type Item } from "@/actions/get-svgs";
 import { NAVBARS_HEIGHT_VALUE } from "@/lib/config";
 import { useInputStore } from "@/lib/store/input";
 import { useSVGViewMode } from "@/lib/store/svg-view-mode";
@@ -72,7 +72,7 @@ function SVGDisplay() {
   );
 }
 
-function SVGCardGrid({ svg }: { svg: Logo }) {
+function SVGCardGrid({ svg }: { svg: Item }) {
   return (
     <div className="flex flex-col *:w-full">
       <Toggle className="relative flex h-48 cursor-pointer flex-col rounded-xl rounded-b-none border border-border text-center transition-all hover:bg-muted/30">
@@ -103,7 +103,7 @@ function SVGCardGrid({ svg }: { svg: Logo }) {
   );
 }
 
-function SVGCardList({ svg }: { svg: Logo }) {
+function SVGCardList({ svg }: { svg: Item }) {
   return (
     <div className="flex *:h-12">
       <Toggle

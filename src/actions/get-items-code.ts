@@ -1,9 +1,10 @@
 "use server";
+import { type ItemOptions } from "@/lib/config";
 import { optimize, type PluginConfig } from "svgo";
-import { formatSvg, type FormatSvgMode } from "./format-svg";
-import { getSvgs, type Logo } from "./get-svgs";
+import { formatSvg } from "./format-svg";
+import { getSvgs, type Item } from "./get-svgs";
 
-async function getItemsCode(items: Logo[], mode: FormatSvgMode) {
+async function getItemsCode(items: Item[], mode: ItemOptions) {
     const SVGO_CONFIG = [
         {
             name: "preset-default",
