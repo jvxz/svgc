@@ -42,4 +42,7 @@ function clearItems() {
   });
 }
 
+export const useIsItemsEmpty = () =>
+  useItemsStore((state) => state.items.length === 0);
+
 export { addItem, clearItems, removeItem, useItemsStore };
