@@ -1,5 +1,5 @@
 function ItemsCodeBlock() {
-  return <div className="h-1/2"></div>;
+  return <div className="h-2/3"></div>;
 }
 
 export { ItemsCodeBlock };
