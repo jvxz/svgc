@@ -21,7 +21,7 @@ function ItemsCodeBlock() {
           )}
           {!noItems && (
             <div className="flex items-center gap-4 overflow-x-hidden text-sm tracking-tight">
-              <CodeBlock.LineNumber className="text-xs text-foreground/40" />
+              <CodeBlock.LineNumber className="w-4 select-none text-xs text-foreground/40" />
               <CodeBlock.LineContent>
                 <CodeBlock.Token />
               </CodeBlock.LineContent>

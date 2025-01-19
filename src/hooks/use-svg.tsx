@@ -9,6 +9,7 @@ function useSvg(name: string | undefined) {
   } = useQuery({
     queryKey: ["svg", name],
     queryFn: () => getSvgData(name),
+    enabled: !!name,
   });
 
   return { svg, isLoading, error };

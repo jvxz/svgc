@@ -2,6 +2,7 @@ import { type Item } from "@/actions/get-svgs";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { type ItemOptions } from "../config";
+import { useSelectedItemsStore } from "./selected-items";
 
 type ItemsState = {
   items: {
@@ -40,12 +41,26 @@ function removeItem(item: Item) {
       items: state.items.filter((i) => i.data.name !== targetItem.data.name),
     };
   });
+
+  useSelectedItemsStore.setState((state) => {
+    return {
+      selectedItems: state.selectedItems.filter(
+        (i) => i.name !== targetItem.data.name,
+      ),
+    };
+  });
 }
 
 function clearItems() {
   useItemsStore.setState(() => {
     return {
       items: [],
+    };
+  });
+
+  useSelectedItemsStore.setState(() => {
+    return {
+      selectedItems: [],
     };
   });
 }
