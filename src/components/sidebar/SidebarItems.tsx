@@ -11,7 +11,7 @@ import { Trash } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { Suspense, useEffect, useRef } from "react";
 import { Button } from "../ui/button";
 import {
   ContextMenu,
@@ -23,6 +23,8 @@ import { ScrollArea } from "../ui/scroll-area";
 import { Toggle } from "../ui/toggle";
 
 function SidebarItems() {
+  const hydrated = useItemsStore.persist.hasHydrated();
+
   const { items } = useItemsStore();
   const parent = useRef(null);
 
@@ -38,9 +40,12 @@ function SidebarItems() {
   return (
     <ScrollArea className="motion-preset-fade-sm h-full">
       <div className="flex flex-1 flex-col gap-2 p-4" ref={parent}>
-        {items.map((item) => (
-          <SidebarItem key={item.data.name} item={item.data} />
-        ))}
+        <Suspense>
+          {hydrated &&
+            items.map((item) => (
+              <SidebarItem key={item.data.name} item={item.data} />
+            ))}
+        </Suspense>
       </div>
     </ScrollArea>
   );

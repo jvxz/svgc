@@ -1,5 +1,6 @@
 import { type Item } from "@/actions/get-svgs";
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import { type ItemOptions } from "../config";
 
 type ItemsState = {
@@ -9,9 +10,16 @@ type ItemsState = {
   }[];
 };
 
-const useItemsStore = create<ItemsState>((_) => ({
-  items: [],
-}));
+const useItemsStore = create<ItemsState>()(
+  persist(
+    (_) => ({
+      items: [],
+    }),
+    {
+      name: "items",
+    },
+  ),
+);
 
 function addItem(item: Item, options: ItemOptions) {
   const state = useItemsStore.getState();

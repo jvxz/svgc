@@ -1,4 +1,3 @@
-"use client";
 import { SidebarItems } from "./SidebarItems";
 import { SidebarNav } from "./SidebarNav";
 

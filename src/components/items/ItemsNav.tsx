@@ -6,6 +6,7 @@ import {
   useSelectedItemsStore,
 } from "@/lib/store/selected-items";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useEffect } from "react";
 import { Button } from "../ui/button";
 
 function ItemsNav() {
@@ -25,6 +26,11 @@ function ItemsNav() {
     if (nextItem) setSelectedItem(nextItem.data);
   };
 
+  useEffect(() => {
+    if (items.length === 0 || items[0] === undefined) return;
+    if (selectedItems.length === 0) setSelectedItem(items[0]?.data);
+  }, [isEmpty, items, selectedItems.length]);
+
   return (
     <div className="h-navbar flex items-center justify-between border-b border-border bg-background/70 p-4 backdrop-blur-lg">
       {isEmpty && (
@@ -35,7 +41,7 @@ function ItemsNav() {
         <p className="text-2xl text-muted-foreground">
           {multipleSelected
             ? `${selectedItems.length} items selected`
-            : `${selectedItems[0]?.name}`}
+            : `${selectedItems[0]?.name ?? items[0]?.data.name}`}
         </p>
       )}
 
