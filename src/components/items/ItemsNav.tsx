@@ -1,7 +1,9 @@
 "use client";
 import { useIsItemsEmpty } from "@/lib/store/items";
+import { useSelectedItemsStore } from "@/lib/store/selected-items";
 
 function ItemsNav() {
+  const { selectedItems } = useSelectedItemsStore();
   const isEmpty = useIsItemsEmpty();
 
   return (
@@ -9,7 +11,11 @@ function ItemsNav() {
       {isEmpty && (
         <p className="text-2xl text-muted-foreground">No items found</p>
       )}
-      {!isEmpty && <p className="text-2xl text-muted-foreground">Items</p>}
+      {!isEmpty && (
+        <p className="text-2xl text-muted-foreground">
+          {selectedItems.length} items selected
+        </p>
+      )}
     </div>
   );
 }

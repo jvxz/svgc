@@ -1,6 +1,7 @@
 "use client";
 import { type Item } from "@/actions/get-svgs";
 import { removeItem, useItemsStore } from "@/lib/store/items";
+import { setSelectedItem } from "@/lib/store/selected-items";
 import { getImageUrl } from "@/lib/utils";
 import autoAnimate from "@formkit/auto-animate";
 import { Trash } from "lucide-react";
@@ -50,6 +51,7 @@ function SidebarItem({ item }: { item: Item }) {
           asChild
           className="flex w-full items-center justify-start rounded-r-none from-transparent from-20% to-muted-foreground/5 dark:bg-gradient-to-l"
           variant="outline"
+          onClick={() => setSelectedItem(item)}
         >
           <Link href={`/items`} className="flex items-center gap-2">
             <Image
