@@ -65,7 +65,19 @@ function clearItems() {
   });
 }
 
+function setItemOptions(item: Item, options: ItemOptions) {
+  const state = useItemsStore.getState();
+  const targetItem = state.items.find((i) => i.data.name === item.name);
+  if (!targetItem) return;
+
+  useItemsStore.setState((state) => ({
+    items: state.items.map((i) =>
+      i.data.name === item.name ? { ...i, options } : i,
+    ),
+  }));
+}
+
 export const useIsItemsEmpty = () =>
   useItemsStore((state) => state.items.length === 0);
 
-export { addItem, clearItems, removeItem, useItemsStore };
+export { addItem, clearItems, removeItem, setItemOptions, useItemsStore };

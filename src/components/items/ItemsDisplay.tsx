@@ -25,6 +25,7 @@ function ItemsDisplay() {
             alt={selectedItems[0]?.name ?? ""}
             width={175}
             height={175}
+            className="z-10"
           />
         )}
       </GridBackground>
