@@ -1,4 +1,4 @@
-import * as pluginTypescript from "prettier/parser-typescript";
+import * as pluginHtml from "prettier/parser-html";
 import * as pluginEstree from "prettier/plugins/estree";
 import * as prettier from "prettier/standalone";
 
@@ -11,12 +11,16 @@ export type FormatSvgMode = {
 }
 
 export async function formatSvg(svg: string) {
-    const formattedCode = await prettier.format(svg, {
-        parser: "typescript",
-        plugins: [pluginTypescript, pluginEstree] as any[],
-        semi: true,
-        singleQuote: false,
-        tabWidth: 2,
-    });
-    return formattedCode;
+    try {
+        const formattedCode = await prettier.format(svg, {
+            parser: "html",
+            plugins: [pluginHtml, pluginEstree] as any[],
+            semi: true,
+            singleQuote: false,
+            tabWidth: 2,
+        });
+        return formattedCode;
+    } catch (error) {
+        throw new Error('Error formatting SVG', { cause: error });
+    }
 }

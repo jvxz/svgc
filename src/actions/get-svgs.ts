@@ -1,5 +1,5 @@
-import isSvg from "is-svg";
 import { z } from 'zod';
+import { formatSvg } from './format-svg';
 
 const LogoSchema = z.array(
   z.object({
@@ -29,26 +29,46 @@ export async function getAllSvgs(fetchOptions?: RequestInit) {
   }
 }
 
-export async function getSvgs(name: ItemList) {
-  const dataArray = await Promise.all(
-    name.map(async (item) => {
-      const res = await fetch(
-        `https://zrevwgazrkablpkwsbfe.supabase.co/storage/v1/object/public/svgs/logos/${item.files[0]}`
-      );
+export async function getSvgData(name: string | undefined) {
+  try {
+    if (!name) return undefined;
 
-      const data = await res.text();
+    const res = await fetch(
+      `https://zrevwgazrkablpkwsbfe.supabase.co/storage/v1/object/public/svgs/logos/${name}`
+    );
 
-      if (isSvg(data)) {
-        const name = item.name === ".NET" ? "DotNet" : item.name === "100tb" ? "OneHundredTB" : item.name === "500px" ? "FiveHundredPx" : item.name
+    const data = await res.text();
+    const formattedData = await formatSvg(data);
 
-        return {
-          name,
-          svg: data,
-        };
-      }
-      throw new Error("Invalid SVG")
-    })
-  );
-  return dataArray;
+    return formattedData;
+  } catch (error) {
+    console.error('Error fetching SVG:', error);
+    return undefined;
+  }
 }
+
+// export async function getSvgs(name: string) {
+//   if (!name) return undefined;
+
+//   const dataArray = await Promise.all(
+//     name.map(async (item) => {
+//       const res = await fetch(
+//         `https://zrevwgazrkablpkwsbfe.supabase.co/storage/v1/object/public/svgs/logos/${item.files[0]}`
+//       );
+
+//       const data = await res.text();
+
+//       if (isSvg(data)) {
+//         const name = item.name === ".NET" ? "DotNet" : item.name === "100tb" ? "OneHundredTB" : item.name === "500px" ? "FiveHundredPx" : item.name
+
+//         return {
+//           name,
+//           svg: data,
+//         };
+//       }
+//       throw new Error("Invalid SVG")
+//     })
+//   );
+//   return dataArray;
+// }
 
