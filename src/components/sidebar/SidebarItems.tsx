@@ -1,12 +1,16 @@
 "use client";
 import { type Item } from "@/actions/get-svgs";
 import { removeItem, useItemsStore } from "@/lib/store/items";
-import { setSelectedItem } from "@/lib/store/selected-items";
+import {
+  setSelectedItem,
+  useSelectedItemsStore,
+} from "@/lib/store/selected-items";
 import { getImageUrl } from "@/lib/utils";
 import autoAnimate from "@formkit/auto-animate";
 import { Trash } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { Button } from "../ui/button";
 import {
@@ -16,6 +20,7 @@ import {
   ContextMenuTrigger,
 } from "../ui/context-menu";
 import { ScrollArea } from "../ui/scroll-area";
+import { Toggle } from "../ui/toggle";
 
 function SidebarItems() {
   const { items } = useItemsStore();
@@ -42,28 +47,53 @@ function SidebarItems() {
 }
 
 function SidebarItem({ item }: { item: Item }) {
+  const { selectedItems } = useSelectedItemsStore();
+  const pathname = usePathname();
+
+  const isIndex = pathname === "/";
+  const isPressed = selectedItems.some((i) => i.name === item.name);
   const imageUrl = item.files[0] ? getImageUrl(item.files[0]) : "";
 
   return (
     <ContextMenu>
       <ContextMenuTrigger className="flex items-center">
-        <Button
+        <Toggle
           asChild
-          className="flex w-full items-center justify-start rounded-r-none from-transparent from-20% to-muted-foreground/5 dark:bg-gradient-to-l"
+          className={
+            "flex w-full items-center justify-start rounded-r-none from-transparent from-20% to-muted-foreground/5 dark:bg-gradient-to-l " +
+            (isIndex ? "hover:bg-accent data-[state=on]:bg-background" : "")
+          }
+          pressed={isIndex ? false : isPressed}
           variant="outline"
-          onClick={() => setSelectedItem(item)}
+          onClick={() => {
+            if (isPressed) return;
+            setSelectedItem(item);
+          }}
         >
-          <Link href={`/items`} className="flex items-center gap-2">
-            <Image
-              src={imageUrl}
-              alt={item.name + " logo"}
-              width={20}
-              height={20}
-              className="size-4"
-            />
-            <p className="truncate">{item.name}</p>
-          </Link>
-        </Button>
+          {isIndex ? (
+            <Link href={`/items`} className="flex items-center gap-2">
+              <Image
+                src={imageUrl}
+                alt={item.name + " logo"}
+                width={20}
+                height={20}
+                className="size-4"
+              />
+              <p className="truncate">{item.name}</p>
+            </Link>
+          ) : (
+            <div className="flex cursor-pointer items-center gap-2">
+              <Image
+                src={imageUrl}
+                alt={item.name + " logo"}
+                width={20}
+                height={20}
+                className="size-4"
+              />
+              <p className="truncate">{item.name}</p>
+            </div>
+          )}
+        </Toggle>
         <Button
           size="icon"
           variant="outline"
