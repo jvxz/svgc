@@ -6,10 +6,10 @@ import { Suspense } from "react";
 export default function Page() {
   return (
     <Suspense fallback={<SVGDisplaySuspense />}>
-      <section className="relative flex w-full flex-col">
+      <div className="motion-preset-fade-sm relative flex w-full flex-col">
         <SVGNavbar />
         <SVGDisplay />
-      </section>
+      </div>
     </Suspense>
   );
 }

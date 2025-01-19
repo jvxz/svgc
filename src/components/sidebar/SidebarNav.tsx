@@ -1,12 +1,13 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { useInputStore } from "@/lib/store/input";
-import { clearItems, useIsItemsEmpty } from "@/lib/store/items";
+import { clearItems, useIsItemsEmpty, useItemsStore } from "@/lib/store/items";
 import { Trash } from "lucide-react";
 import { Button } from "../ui/button";
 
 export function SidebarNav() {
   const { itemInput, setItemInput } = useInputStore();
+  const { items } = useItemsStore();
 
   return (
     <div className="h-navbar flex items-center gap-2 border-b border-border p-4">
@@ -14,7 +15,11 @@ export function SidebarNav() {
         value={itemInput}
         onChange={(e) => setItemInput(e.target.value)}
         className="pe-11"
-        placeholder="Search items..."
+        placeholder={
+          useIsItemsEmpty()
+            ? "Search items..."
+            : `Search ${items.length} items...`
+        }
         type="search"
         disabled={useIsItemsEmpty()}
       />
