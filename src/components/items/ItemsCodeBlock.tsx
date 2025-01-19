@@ -1,14 +1,16 @@
 "use client";
 import { useSvg } from "@/hooks/use-svg";
+import { useTargetItem } from "@/hooks/use-target-item";
 import { useSelectedItemsStore } from "@/lib/store/selected-items";
 import { ArchiveX } from "lucide-react";
 import { CodeBlock } from "react-code-block";
 
 function ItemsCodeBlock() {
   const { selectedItems } = useSelectedItemsStore();
+  const targetItem = useTargetItem();
   const noItems = selectedItems.length === 0;
 
-  const { svg } = useSvg(selectedItems[0]?.files[0]);
+  const { svg } = useSvg(targetItem?.data.files[0], targetItem?.options);
 
   return (
     <div className="h-2/3 w-full">

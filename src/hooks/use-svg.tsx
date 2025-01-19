@@ -1,14 +1,15 @@
 import { getSvgData } from "@/actions/get-svgs";
+import { type ItemOptions } from "@/lib/config";
 import { useQuery } from "@tanstack/react-query";
 
-function useSvg(name: string | undefined) {
+function useSvg(name: string | undefined, options: ItemOptions | undefined) {
   const {
     data: svg,
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["svg", name],
-    queryFn: () => getSvgData(name),
+    queryKey: ["svg", name, options],
+    queryFn: () => getSvgData(name, options),
     enabled: !!name,
   });
 

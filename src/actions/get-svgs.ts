@@ -1,3 +1,4 @@
+import { type ItemOptions } from '@/lib/config';
 import { z } from 'zod';
 import { formatSvg } from './format-svg';
 
@@ -29,7 +30,7 @@ export async function getAllSvgs(fetchOptions?: RequestInit) {
   }
 }
 
-export async function getSvgData(name: string | undefined) {
+export async function getSvgData(name: string | undefined, options: ItemOptions | undefined) {
   try {
     if (!name) return undefined;
 
@@ -37,7 +38,10 @@ export async function getSvgData(name: string | undefined) {
       `https://zrevwgazrkablpkwsbfe.supabase.co/storage/v1/object/public/svgs/logos/${name}`
     );
 
-    const data = await res.text();
+    let data = await res.text();
+
+    if (!options?.persistBrandColors) data = persistBrandColors(data);
+
     const formattedData = await formatSvg(data);
 
     return formattedData;
@@ -47,28 +51,8 @@ export async function getSvgData(name: string | undefined) {
   }
 }
 
-// export async function getSvgs(name: string) {
-//   if (!name) return undefined;
+function persistBrandColors(data: string) {
 
-//   const dataArray = await Promise.all(
-//     name.map(async (item) => {
-//       const res = await fetch(
-//         `https://zrevwgazrkablpkwsbfe.supabase.co/storage/v1/object/public/svgs/logos/${item.files[0]}`
-//       );
 
-//       const data = await res.text();
-
-//       if (isSvg(data)) {
-//         const name = item.name === ".NET" ? "DotNet" : item.name === "100tb" ? "OneHundredTB" : item.name === "500px" ? "FiveHundredPx" : item.name
-
-//         return {
-//           name,
-//           svg: data,
-//         };
-//       }
-//       throw new Error("Invalid SVG")
-//     })
-//   );
-//   return dataArray;
-// }
-
+  return data.replace(/fill="[^"]*"/g, 'fill="currentColor"');
+}
