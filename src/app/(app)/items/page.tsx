@@ -7,9 +7,9 @@ export default function Page() {
   return (
     <div className="motion-preset-fade-sm flex w-full flex-col">
       <ItemsNav />
-      <div className="flex h-full w-full">
+      <div className="grid h-full w-full grid-cols-3">
         <ItemsConfig />
-        <div className="flex h-full w-1/3 flex-col">
+        <div className="flex h-full w-full flex-col">
           <ItemsDisplay />
           <ItemsCodeBlock />
         </div>
